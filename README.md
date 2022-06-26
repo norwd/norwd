@@ -6,7 +6,6 @@ Here are some ideas to get you started:
 - 👯 I’m looking to collaborate on ...
 - 🤔 I’m looking for help with ...
 - 💬 Ask me about ...
-- 📫 How to reach me: ...
 - ⚡ Fun fact: ...
 -->
 
@@ -20,5 +19,13 @@ public class norwd
 	/// My <see cref="norwod.Pronouns" /> are he/him/his.
 	/// </summary>
 	public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
+
+	/// <summary>
+	/// Some of my external links.
+	/// </summary>
+	public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
+	{
+		["GitHub"] = new Uri("https://github.com/norwd"),
+	};
 }
 ```
