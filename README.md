@@ -1,6 +1,4 @@
 <!--
-**norwd/norwd** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
 Here are some ideas to get you started:
 
 - 🔭 I’m currently working on ...
@@ -9,6 +7,18 @@ Here are some ideas to get you started:
 - 🤔 I’m looking for help with ...
 - 💬 Ask me about ...
 - 📫 How to reach me: ...
-- 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+
+```csharp
+/// <summary>
+/// Hi, I'm <see cref="norwd" />.
+/// </summary>
+public class norwd
+{
+	/// <summary>
+	/// My <see cref="norwod.Pronouns" /> are he/him/his.
+	/// </summary>
+	public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
+}
+```
