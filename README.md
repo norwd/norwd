@@ -28,7 +28,7 @@ public class norwd
   };
 
   /// <summary>
-  /// Get a randoised fortune each time.
+  /// Get a randomised fortune each time.
   /// </summary>
   public string Fortune => new[]
   {
