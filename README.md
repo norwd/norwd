@@ -43,7 +43,7 @@ public class norwd
     "With sufficient thrust, pigs fly just fine. However, this is not necessarily a good idea. - From RFC1925",
     "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements. - Brian Kernighan",
     "Unix is simple. It just takes a genius to understand its simplicity. - Dennis Ritchie",
-    "The first principle is that you must not fool yourself - and you are the easiest person to fool. -  Richard Feynman",
+    "The first principle is that you must not fool yourself - and you are the easiest person to fool. - Richard Feynman",
     "The best camera is the one at L2. - https://xkcd.com/2645",
     "Нет войне!"
   }
