@@ -17,7 +17,7 @@ Here are some ideas to get you started:
 public class norwd
 {
   /// <summary>
-  /// My <see cref="norwod.Pronouns" /> are he/him/his.
+  /// My <see cref="norwd.Pronouns" /> are he/him/his.
   /// </summary>
   public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
 
