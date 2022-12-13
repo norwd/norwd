@@ -1,5 +1,3 @@
-<!-- markdownlint-disable -->
-
 ```csharp
 /// <summary>
 /// Hi, I'm <see cref="norwd" />.
