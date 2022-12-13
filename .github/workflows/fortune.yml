@@ -9,6 +9,9 @@ defaults:
     shell: bash
 
 on:
+  push:
+    branches: main
+    paths: fortunes.json
   workflow_dispatch:
     inputs:
       fortune:
@@ -25,18 +28,12 @@ jobs:
     name: "Set bio"
     runs-on: ubuntu-latest
     steps:
-      - name: Install Fortune
-        if: steps.cache-fortune.outputs.cache-hit != 'true'
-        run: |
-          sudo apt-get install -y fortune
-
       - name: "Select Random Fortune"
         if: inputs.fortune == ''
         id: fortune
         run: |
-          FORTUNE=`fortune -s literature`
           echo "FORTUNE<<EOF" >> "${GITHUB_ENV}"
-          fortune -s literature | tee -a "${GITHUB_ENV}"
+          jq -r '.[]' < fortunes.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
           echo "EOF" >> "${GITHUB_ENV}"
 
       - name: "Set Bio"
