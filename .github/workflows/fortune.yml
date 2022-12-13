@@ -9,6 +9,8 @@ defaults:
     shell: bash
 
 on:
+  schedule:
+    - cron: "0"
   push:
     branches: main
     paths: fortunes.json
