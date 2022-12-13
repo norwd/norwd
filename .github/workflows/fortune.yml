@@ -10,10 +10,11 @@ defaults:
 
 on:
   workflow_dispatch:
-    fortune:
-      description: "Specific fortune to use, if unset, a random fortune will be used."
-      required: false
-      type: string
+    inputs:
+      fortune:
+        description: "Specific fortune to use, if unset, a random fortune will be used."
+        required: false
+        type: string
 
 env:
   GH_TOKEN: ${{ secrets.BIO_UPDATE_NORWD }}
