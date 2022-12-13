@@ -51,4 +51,4 @@ jobs:
           gh api /user \
             --header "Accept: application/vnd.github+json" \
             --method PATCH \
-            -f bio="${FORTUNE}" # TODO: Get random fortune from previous step
+            -f bio="${FORTUNE}"
