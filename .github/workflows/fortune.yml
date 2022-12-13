@@ -26,10 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Fortune
-        if: inputs.fortune == ''
-        uses: awalsh128/cache-apt-pkgs-action@v1.2.1
-        with:
-          packages: fortune-mod
+        if: steps.cache-fortune.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get install -y fortune
 
       - name: "Select Random Fortune"
         if: inputs.fortune == ''
