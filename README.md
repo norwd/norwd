@@ -36,6 +36,7 @@ public class norwd
     "The first principle is that you must not fool yourself - and you are the easiest person to fool. - Richard Feynman",
     "The best camera is the one at L2. - https://xkcd.com/2645",
     "Нет войне!",
+    "Network packets travelling uphill (use a carrier pigeon)",
   }
   .OrderBy(_ => new Random().Next())
   .First();
