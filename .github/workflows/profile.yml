@@ -2,8 +2,7 @@
 
 name: "Regenerating README"
 run-name: "Regenerating README"
-permissions:
-  contents: read
+permissions: {}
 
 defaults:
   run:
