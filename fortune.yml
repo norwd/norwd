@@ -1,0 +1,38 @@
+---
+
+name: "Setting Bio to Random Fortune"
+run-name: "Setting Bio to ${{ inputs.fortune || 'Random Fortune' }}"
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch:
+    fortune:
+      description: "Specific fortune to use, if unset, a random fortune will be used."
+      required: false
+      type: string
+
+env:
+  GH_TOKEN: ${{ secrets.BIO_UPDATE_NORWD }}
+  FORTUNE: ${{ inputs.fortune }}
+
+jobs:
+  set-bio:
+    name: "Set bio"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Select Random Fortune"
+        if: inputs.fortune == ''
+        id: fortune
+        run: |
+          fortune
+
+      - name: "Set Bio"
+        run: |
+          gh api /user \
+            --header "Accept: application/vnd.github+json" \
+            --method PATCH \
+            -f bio="${FORTUNE}" # TODO: Get random fortune from previous step
