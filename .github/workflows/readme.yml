@@ -1,0 +1,71 @@
+---
+
+name: "Regenerating README"
+run-name: "Regenerating README"
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  push:
+    paths:
+      - README_TEMPLATE.md
+
+jobs:
+  generate-readme:
+    name: "Generate README"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.README_UPDATE_NORWD }}
+          ref: ${{ github.ref }}
+
+      - name: Replace Patterns in Template
+        run: |
+          cat << EOF > README.md
+          ```csharp
+          /// <summary>
+          /// Hi, I'm <see cref="norwd" />.
+          /// </summary>
+          public class norwd
+          {
+            /// <summary>
+            /// My <see cref="norwd.Pronouns" /> are he/him/his.
+            /// </summary>
+            public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
+
+            /// <summary>
+            /// Some of my external links.
+            /// </summary>
+            public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
+            {
+              ["GitHub"] = new Uri("https://github.com/norwd"),
+            };
+
+            /// <summary>
+            /// Get a randomised fortune each time.
+            /// </summary>
+            public string Fortune => new[]
+            {
+          $(jq -r '.[]' < fortunes.json | sed 's/^/    /g')
+            }
+            .OrderBy(_ => new Random().Next())
+            .First();
+          }
+          ```
+          EOF
+
+      - name: Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: README.md
+          commit_author: norwd <106889957+norwd@users.noreply.github.com>
+          commit_user_name: norwd
+          commit_user_email: 106889957+norwd@users.noreply.github.com
+          commit_message: Auto generate README.md
+          commit_options: -s -S
