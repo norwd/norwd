@@ -1,0 +1,13 @@
+#
+# Settings for local files
+#
+
+#
+# Defaults for all files
+#
+[*]
+charset = utf-8
+
+[*.{js,json}]
+indent_size  = 4
+indent_style = space
