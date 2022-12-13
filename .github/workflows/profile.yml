@@ -12,6 +12,7 @@ on:
   push:
     paths:
       - .github/workflows/profile.yml
+      - fortunes.json
 
 jobs:
   generate-readme:
