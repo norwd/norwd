@@ -37,6 +37,7 @@ public class norwd
     "The best camera is the one at L2. - https://xkcd.com/2645",
     "Нет войне!",
     "Network packets travelling uphill (use a carrier pigeon) - BOFH excuse #24",
+    "No code is faster than no code. - merb motto",
   }
   .OrderBy(_ => new Random().Next())
   .First();
