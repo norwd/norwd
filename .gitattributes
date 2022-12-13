@@ -1,0 +1,5 @@
+#
+# Configure GitHub Language Detection
+#
+
+**.md.template linguist-language=markdown
