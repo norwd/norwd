@@ -25,17 +25,11 @@ jobs:
     name: "Set bio"
     runs-on: ubuntu-latest
     steps:
-      - name: Restore Fortune
-        uses: actions/cache@v3
-        id: cache-fortune
-        with:
-          path: /usr/games/fortune
-          key: ${{ runner.os }}-fortune
-
       - name: Install Fortune
-        if: steps.cache-fortune.outputs.cache-hit != 'true'
-        run: |
-          sudo apt-get install -y fortune
+        if: inputs.fortune == ''
+        uses: awalsh128/cache-apt-pkgs-action@v1.2.1
+        with:
+          packages: fortune
 
       - name: "Select Random Fortune"
         if: inputs.fortune == ''
