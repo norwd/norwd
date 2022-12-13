@@ -12,7 +12,7 @@ defaults:
 on:
   push:
     paths:
-      - README_TEMPLATE.md
+      - .github/workflows/profile.yml
 
 jobs:
   generate-readme:
