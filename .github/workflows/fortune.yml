@@ -41,7 +41,10 @@ jobs:
         if: inputs.fortune == ''
         id: fortune
         run: |
-          fortune
+          FORTUNE=`fortune -s literature`
+          echo "FORTUNE<<EOF" >> "${GITHUB_ENV}"
+          fortune -s literature | tee -a "${GITHUB_ENV}"
+          echo "EOF" >> "${GITHUB_ENV}"
 
       - name: "Set Bio"
         run: |
