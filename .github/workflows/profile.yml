@@ -54,7 +54,7 @@ jobs:
             /// </summary>
             public string Fortune => new[]
             {
-          $(jq -r '.[]' < fortunes.json | sed 's/^/    /g')
+          $(jq '.[]' < fortunes.json | sed 's/^/    /g')
             }
             .OrderBy(_ => new Random().Next())
             .First();
