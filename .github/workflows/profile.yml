@@ -28,7 +28,9 @@ jobs:
       - name: Replace Patterns in Template
         run: |
           cat << EOF > README.md
-          ```csharp
+          <!-- markdownlint-disable -->
+
+          \`\`\`csharp
           /// <summary>
           /// Hi, I'm <see cref="norwd" />.
           /// </summary>
@@ -57,7 +59,7 @@ jobs:
             .OrderBy(_ => new Random().Next())
             .First();
           }
-          ```
+          \`\`\`
           EOF
 
       - name: Push Changes
