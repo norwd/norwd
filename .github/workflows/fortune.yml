@@ -11,9 +11,11 @@ defaults:
 on:
   schedule:
     - cron: "0 * * * *"
+
   push:
     branches: main
     paths: fortunes.json
+
   workflow_dispatch:
     inputs:
       fortune:
@@ -42,8 +44,4 @@ jobs:
           echo "EOF" >> "${GITHUB_ENV}"
 
       - name: "Set Bio"
-        run: |
-          gh api /user \
-            --header "Accept: application/vnd.github+json" \
-            --method PATCH \
-            -f bio="${FORTUNE}"
+        run: gh api /user -X PATCH -f bio="${FORTUNE}"
