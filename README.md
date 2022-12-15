@@ -39,6 +39,7 @@ public class norwd
     "Network packets travelling uphill (use a carrier pigeon) - BOFH excuse #24",
     "No code is faster than no code. - merb motto",
     "Do not lie to your Doctor, your Lawyer, or your Compiler",
+    "If we’d asked the customers what they wanted, they would have said “faster horses” - Henry Ford",
   }
   .OrderBy(_ => new Random().Next())
   .First();
