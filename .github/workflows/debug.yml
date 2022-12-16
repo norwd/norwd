@@ -3,7 +3,7 @@
 name: Debug Workflow Run
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
 
 jobs:
   debug:
