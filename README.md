@@ -40,7 +40,7 @@ public class norwd
     "No code is faster than no code. - merb motto",
     "Do not lie to your Doctor, your Lawyer, or your Compiler",
     "If we’d asked the customers what they wanted, they would have said “faster horses” - Henry Ford",
-    "JWZ’s Law of Software Envelopment: “Every program attempts to expand until it can read mail. Those programs which cannot so expand are replaced by ones which can.”",
+    "JWZ's Law of Software Envelopment: Every program attempts to expand until it can read mail. Those programs which cannot so expand are replaced by ones that can.",
   }
   .OrderBy(_ => new Random().Next())
   .First();
