@@ -42,6 +42,7 @@ public class norwd
     "If we’d asked the customers what they wanted, they would have said “faster horses” - Henry Ford",
     "JWZ's Law of Software Envelopment: Every program attempts to expand until it can read mail. Those programs which cannot so expand are replaced by ones that can.",
     "Inspiration does exist, but it must find you working. - Pablo Picasso",
+    "Night time is really the best time to work. All the ideas are there to be yours because everyone else is asleep. - Catherine O'Hara",
   }
   .OrderBy(_ => new Random().Next())
   .First();
