@@ -41,6 +41,7 @@ public class norwd
     "Do not lie to your Doctor, your Lawyer, or your Compiler",
     "If we’d asked the customers what they wanted, they would have said “faster horses” - Henry Ford",
     "JWZ's Law of Software Envelopment: Every program attempts to expand until it can read mail. Those programs which cannot so expand are replaced by ones that can.",
+    "Inspiration does exist, but it must find you working. - Pablo Picasso",
   }
   .OrderBy(_ => new Random().Next())
   .First();
