@@ -44,6 +44,7 @@ public class norwd
     "Inspiration does exist, but it must find you working. - Pablo Picasso",
     "Night time is really the best time to work. All the ideas are there to be yours because everyone else is asleep. - Catherine O'Hara",
     "A language that doesn't affect the way you think about programming, is not worth knowing. - Alan Perlis",
+    "Anyone who tells you they're certain about how the world works is either a mathematician, or they're selling something. - Tom Scott https://youtu.be/Wif1EAgEQKI",
   }
   .OrderBy(_ => new Random().Next())
   .First();
