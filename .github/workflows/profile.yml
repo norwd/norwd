@@ -52,6 +52,9 @@ jobs:
             /// <summary>
             /// Get a randomised fortune each time.
             /// </summary>
+            /// <remarks>
+            /// These fortunes are periodically set as my bio!
+            /// </remarks>
             public string Fortune => new[]
             {
           $(jq '.[]' < fortunes.json | sed 's/^/    /g' | sed 's/$/,/g')
