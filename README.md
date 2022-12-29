@@ -22,6 +22,9 @@ public class norwd
   /// <summary>
   /// Get a randomised fortune each time.
   /// </summary>
+  /// <remarks>
+  /// These fortunes are periodically set as my bio!
+  /// </remarks>
   public string Fortune => new[]
   {
     "The computing scientist’s main challenge is not to get confused by the complexities of his own making. - Edsger Dijkstra",
