@@ -9,11 +9,39 @@ run-name: Audit for ${{ github.event_name }} event
 
 on:
   discussion_comment:
+    types:
+      - created
+      - edited
+      - deleted
+
   issue_comment:
-  # pull_request_comment: # DEPRECATED
+    types:
+      - created
+      - edited
+      - deleted
+
+  ### DEPRECATED ###
+  # pull_request_comment:
+  #   types:
+  #     - created
+  #     - edited
+  #     - deleted
+
   pull_request_review:
+    types:
+      - submitted
+      - edited
+      - dismissed
+
   pull_request_review_comment:
+    types:
+      - created
+      - edited
+      - deleted
+
   watch:
+    types:
+      - started
 
 jobs:
   record-comment:
