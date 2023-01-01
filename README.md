@@ -50,6 +50,7 @@ public class norwd
     "Anyone who tells you they're certain about how the world works is either a mathematician, or they're selling something. - Tom Scott https://youtu.be/Wif1EAgEQKI",
     "World domination is such an ugly phrase. I prefer to call it world optimisation. - HPMOR",
     "Organic chemistry might as well be called 600 colourless compounds and how to draw them. - https://youtu.be/0ZfS8dr3jbc",
+    "Non auro, sed ferro!",
   }
   .OrderBy(_ => new Random().Next())
   .First();
