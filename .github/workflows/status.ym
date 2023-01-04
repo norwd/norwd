@@ -1,0 +1,71 @@
+---
+
+name: "Setting Status to Random Icon"
+run-name: "Setting Status to ${{ inputs.emoji || 'Random Icon' }}"
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+  push:
+    branches: main
+    paths:
+      - statuses.json
+      - .github/workflows/status.yml
+
+  workflow_dispatch:
+    inputs:
+      emoji:
+        description: "Specific emoji to use, if unset, a random emoji will be used."
+        required: false
+        type: string
+
+      message:
+        description: "Specific status message to use, if unset, a random message will be used."
+        required: false
+        type: string
+
+env:
+  GH_TOKEN: ${{ secrets.BIO_UPDATE_NORWD }}
+  EMOJI: ${{ inputs.emoji }}
+  MESSAGE: ${{ inputs.message }}
+
+jobs:
+  set-status:
+    name: "Set status"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Select Random Emoji"
+        if: inputs.emoji == ''
+        run: |
+          echo "EMOJI<<EOF" >> "${GITHUB_ENV}"
+          jq -cr '.[].emoji' < statuses.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
+          echo "EOF" >> "${GITHUB_ENV}"
+
+      - name: "Select Random Message"
+        if: inputs.message == ''
+        run: |
+          echo "MESSAGE<<EOF" >> "${GITHUB_ENV}"
+          jq -cr '.[].message' < statuses.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
+          echo "EOF" >> "${GITHUB_ENV}"
+
+      - name: "Set Bio"
+        run: gh api graphql -F emoji="${EMOJI}" -F message="${MESSAGE}" -f query="${QUERY}"
+        env:
+          QUERY: |
+            mutation setUserStatus($emoji: String!, $message: String!) {
+              changeUserStatus(input: {emoji: $emoji, message: $message}) {
+                status {
+                  emoji
+                  message
+                }
+              }
+            }
