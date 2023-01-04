@@ -26,7 +26,7 @@ on:
         type: string
 
       message:
-        description: "Specific status message to use, if unset, a random message will be used."
+        description: "Specific status message to use, if unset, no message will be used."
         required: false
         type: string
 
@@ -48,13 +48,6 @@ jobs:
         run: |
           echo "EMOJI<<EOF" >> "${GITHUB_ENV}"
           jq -cr '.[].emoji' < statuses.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
-          echo "EOF" >> "${GITHUB_ENV}"
-
-      - name: "Select Random Message"
-        if: inputs.message == ''
-        run: |
-          echo "MESSAGE<<EOF" >> "${GITHUB_ENV}"
-          jq -cr '.[].message' < statuses.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
           echo "EOF" >> "${GITHUB_ENV}"
 
       - name: "Set Status"
