@@ -57,7 +57,7 @@ jobs:
           jq -cr '.[].message' < statuses.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
           echo "EOF" >> "${GITHUB_ENV}"
 
-      - name: "Set Bio"
+      - name: "Set Status"
         run: gh api graphql -F emoji="${EMOJI}" -F message="${MESSAGE}" -f query="${QUERY}"
         env:
           QUERY: |
