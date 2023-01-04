@@ -31,7 +31,7 @@ on:
         type: string
 
 env:
-  GH_TOKEN: ${{ secrets.BIO_UPDATE_NORWD }}
+  GH_TOKEN: ${{ secrets.STATUS_UPDATE_NORWD }}
   EMOJI: ${{ inputs.emoji }}
   MESSAGE: ${{ inputs.message }}
 
