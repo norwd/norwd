@@ -1,10 +1,14 @@
 [
-  {
-    "emoji": "🤖",
-    "message": "Automating..."
-  },
-  {
-    "emoji": "🔧",
-    "message": "Fixing..."
-  }
+    {
+        "emoji": "🤖",
+        "message": "Automating..."
+    },
+    {
+        "emoji": "🔧",
+        "message": "Fixing..."
+    },
+    {
+        "emoji": "🎰",
+        "message": "Randomising..."
+    }
 ]
