@@ -19,3 +19,11 @@ jobs:
         run: |
           echo "::error::Test 1"
           echo "::error::Test 2" 1>&2
+          echo "::error::Test 3"
+          echo "::error::Test 4" 1>&2
+          echo "::group::Group"
+          echo "::error::Test 5"
+          echo "::error::Test 6" 1>&2
+          echo "::endGroup::"
+          echo "::error::Test 7"
+          echo "::error::Test 8" 1>&2
