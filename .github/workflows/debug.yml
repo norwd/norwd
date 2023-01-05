@@ -14,3 +14,8 @@ jobs:
         run: echo "${GITHUB_CONTEXT}"
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
+
+      - name: "Test workflow commands"
+        run: |
+          echo "::error::Test 1"
+          echo "::error::Test 2" 1>&2
