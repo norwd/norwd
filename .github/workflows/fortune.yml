@@ -45,5 +45,8 @@ jobs:
           jq -r '.[]' < fortunes.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
           echo "EOF" >> "${GITHUB_ENV}"
 
+      - name: "Install gh-user"
+        run: gh extension install norwd/gh-user
+
       - name: "Set Bio"
-        run: gh api /user -X PATCH -f bio="${FORTUNE}"
+        run: gh user bio "${FORTUNE}"
