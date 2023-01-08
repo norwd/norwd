@@ -51,7 +51,7 @@ public class norwd
     "World domination is such an ugly phrase. I prefer to call it world optimisation. - HPMOR",
     "Organic chemistry might as well be called 600 colourless compounds and how to draw them. - https://youtu.be/0ZfS8dr3jbc",
     "Non auro, sed ferro!",
-    "Do not listen to those who say \"Vox populi, vox Dei\", since the riotousness of the crowd is always very close to madness. - Alcuin",
+    "Do not listen to those who say “Vox populi, vox Dei”, since the riotousness of the crowd is always very close to madness. - Alcuin",
   }
   .OrderBy(_ => new Random().Next())
   .First();
