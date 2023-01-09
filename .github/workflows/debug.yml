@@ -3,7 +3,6 @@
 name: Debug Workflow Run
 
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:
