@@ -4,6 +4,10 @@ name: "Regenerating README"
 run-name: "Regenerating README"
 permissions: {}
 
+concurrency:
+  group: profile
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
