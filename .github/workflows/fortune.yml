@@ -4,6 +4,10 @@ name: "Setting Bio to Random Fortune"
 run-name: "Setting Bio to ${{ inputs.fortune || 'Random Fortune' }}"
 permissions: {}
 
+concurrency:
+  group: fortune
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
