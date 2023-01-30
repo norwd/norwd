@@ -27,14 +27,7 @@ public class norwd
   /// </remarks>
   public string Fortune => new[]
   {
-    "When in doubt, use brute force. - Ken Thompson",
-    "What I cannot build, I do not understand. - Richard Feynman",
-    "Testing can show the presence of bugs, not their absence. - Edsger Dijkstra",
-    "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements. - Brian Kernighan",
-    "Нет войне!",
-    "No code is faster than no code. - merb motto",
-    "A language that doesn't affect the way you think about programming, is not worth knowing. - Alan Perlis",
-    "Anyone who tells you they're certain about how the world works is either a mathematician, or they're selling something. - Tom Scott https://youtu.be/Wif1EAgEQKI",
+
   }
   .OrderBy(_ => new Random().Next())
   .First();
