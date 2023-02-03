@@ -49,6 +49,18 @@ public class norwd
     "Practicality beats purity.",
     "Responsive is better than fast.",
     "Speak like a human.",
+    "Don't communicate by sharing memory, share memory by communicating.",
+    "Concurrency is not parallelism.",
+    "The bigger the interface, the weaker the abstraction.",
+    "Make the zero value useful.",
+    "A little copying is better than a little dependency.",
+    "Clear is better than clever.",
+    "Reflection is never clear.",
+    "Errors are values.",
+    "Don't just check errors, handle them gracefully.",
+    "Design the architecture, name the components, document the details.",
+    "Documentation is for users.",
+    "Don't panic.",
   }
   .OrderBy(_ => new Random().Next())
   .First();
