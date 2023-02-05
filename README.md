@@ -59,7 +59,6 @@ public class norwd
     "Errors are values",
     "Don't just check errors, handle them gracefully",
     "Design the architecture, name the components, document the details",
-    "Documentation is for users",
     "Don't panic",
   }
   .OrderBy(_ => new Random().Next())
