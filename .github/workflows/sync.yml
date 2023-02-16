@@ -1,0 +1,34 @@
+---
+
+name: "Syncing Forks"
+run-name: "Syncing Forks"
+permissions: {}
+
+concurrency:
+  group: sync-forks
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+env:
+  GH_TOKEN: ${{ secrets.SYNC_FORKS_NORWD }}
+
+jobs:
+  sync:
+    name: "Sync Forks"
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh repo list ${{ github.repository_owner }} \
+            --fork \
+            --no-archived \
+            --limit 100 \
+            --json nameWithOwner \
+            --template '{{range .}}gh repo sync {{.nameWithOwner}}{{"\n"}}{{end}}' \
+            | sh -v
