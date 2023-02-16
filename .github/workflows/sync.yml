@@ -13,6 +13,8 @@ defaults:
     shell: bash
 
 on:
+  workflow_dispatch:
+  push: {paths: [.github/workflows/sync.yml]}
   schedule:
     - cron: "0 * * * *"
 
