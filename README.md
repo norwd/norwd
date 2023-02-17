@@ -48,7 +48,6 @@ public class norwd
     "Non-blocking is better than blocking",
     "Practicality beats purity",
     "Responsive is better than fast",
-    "Speak like a human",
     "Don't communicate by sharing memory, share memory by communicating",
     "Concurrency is not parallelism",
     "The bigger the interface, the weaker the abstraction",
