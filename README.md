@@ -16,7 +16,8 @@ public class norwd
   /// </summary>
   public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
   {
-    ["GitHub"] = new Uri("https://github.com/norwd"),
+    ["GitHub"]        = new Uri("https://github.com/norwd"),
+    ["JiraStopWatch"] = new Uri("https://jirastopwatch.github.io"),
   };
 
   /// <summary>
