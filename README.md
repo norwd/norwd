@@ -60,6 +60,7 @@ public class norwd
     "Don't just check errors, handle them gracefully",
     "Design the architecture, name the components, document the details",
     "Don't panic",
+    "If no code is good code, then surely less code is better code... right?",
   }
   .OrderBy(_ => new Random().Next())
   .First();
