@@ -43,11 +43,12 @@ jobs:
 
       - name: "Select Random Fortune"
         if: inputs.fortune == ''
-        id: fortune
         run: |
-          echo "FORTUNE<<EOF" >> "${GITHUB_ENV}"
+          EOF_MARKER="$(head -c 8 /dev/random | hexdump -v -e '1/1 \"%.2X\"')"
+          echo "::add-mask::${EOF_MARKER}"
+          echo "FORTUNE<<${EOF_MARKER}" >> "${GITHUB_ENV}"
           jq -r '.[]' < fortunes.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
-          echo "EOF" >> "${GITHUB_ENV}"
+          echo "${EOF_MARKER}" >> "${GITHUB_ENV}"
 
       - name: "Install gh-user"
         run: gh extension install norwd/gh-user
