@@ -20,9 +20,14 @@ jobs:
         if: ${{ 'FOO' == 'foo' }}
         run: echo "Github Actions are case-insensitive"
 
-      - name: "Test dot character in step id"
-        id: a.b
-        run: echo "c=foo" >> "${GITHUB_OUTPUT}"
+      # The workflow is not valid.
+      #     .github/workflows/debug.yml (Line: 24, Col: 13):
+      #         The identifier 'a.b' is invalid.
+      #         IDs may only contain alphanumeric characters, '_', and '-'.
+      #         IDs must start with a letter or '_' and and must be less than 100 characters.
+      # - name: "Test dot character in step id"
+      #   id: a.b
+      #   run: echo "c=foo" >> "${GITHUB_OUTPUT}"
 
       - name: "Test dot character in step output"
         id: d
