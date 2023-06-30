@@ -39,9 +39,9 @@ jobs:
       - name: "Test dereference of output with dot character (using square bracket syntax)"
         run: echo "${{ steps.d.outputs['e.f'] }}"
 
-      - name: "Test complexe json step output"
+      - name: "Test complex json step output"
         id: json
-        run: echo "object=$(echo "${JSON}" | jq .)" >> "${GITHUB_OUTPUT}"
+        run: echo "object=$(echo "${JSON}" | jq -c)" >> "${GITHUB_OUTPUT}"
         env:
           JSON: |
             {
