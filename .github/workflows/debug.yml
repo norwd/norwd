@@ -31,7 +31,7 @@ jobs:
 
       - name: "Test dot character in step output"
         id: d
-        run: echo "e=bar" >> "${GITHUB_OUTPUT}"
+        run: echo "e.f=bar" >> "${GITHUB_OUTPUT}"
 
       - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps', '}') }} context"
         run: echo "${STEPS_CONTEXT}"
