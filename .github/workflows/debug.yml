@@ -33,10 +33,28 @@ jobs:
         id: d
         run: echo "e.f=bar" >> "${GITHUB_OUTPUT}"
 
+      - name: "Test dereference of output with dot character"
+        run: echo "${{ steps.d.outputs.e.f }}"
+
+      - name: "Test dereference of output with dot character (using square bracket syntax)"
+        run: echo "${{ steps.d.outputs['e.f'] }}"
+
+      - name: "Test complexe json step output"
+        id: json
+        run: echo "${JSON}" >> "${GITHUB_OUTPUT}"
+        env:
+          JSON: |
+            {
+              "foo": "This is a top level value",
+              "bar": {
+                "baz": "This is a nested value",
+                "quz": [
+                  "This is an array of values"
+                ]
+              }
+            }
+
       - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps', '}') }} context"
         run: echo "${STEPS_CONTEXT}"
         env:
           STEPS_CONTEXT: ${{ toJSON(steps) }}
-
-      - name: "Test dereference of output with dot character"
-        run: echo "${{ steps.d.outputs.e.f }}"
