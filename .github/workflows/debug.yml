@@ -19,3 +19,16 @@ jobs:
       - name: "Test case sensitivity of string comparison"
         if: ${{ 'FOO' == 'foo' }}
         run: echo "Github Actions are case-insensitive"
+
+      - name: "Test dot character in step id"
+        id: a.b
+        run: echo "c=foo" >> "${GITHUB_OUTPUT}"
+
+      - name: "Test dot character in step output"
+        id: d
+        run: echo "e=bar" >> "${GITHUB_OUTPUT}"
+
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps', '}') }} context"
+        run: echo "${STEPS_CONTEXT}"
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
