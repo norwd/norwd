@@ -41,7 +41,7 @@ jobs:
 
       - name: "Test complexe json step output"
         id: json
-        run: echo "object=${JSON}" >> "${GITHUB_OUTPUT}"
+        run: echo "object=$(echo "${JSON}" | jq .)" >> "${GITHUB_OUTPUT}"
         env:
           JSON: |
             {
