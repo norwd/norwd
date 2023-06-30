@@ -56,10 +56,10 @@ jobs:
 
       - name: "Test dereference of complex json output"
         run: |
-          echo "${{ fromJSON(steps.json.outputs.object).foo }}"
-          echo "${{ fromJSON(steps.json.outputs.object).bar }}"
-          echo "${{ fromJSON(steps.json.outputs.object).bar.baz }}"
-          echo "${{ fromJSON(steps.json.outputs.object).bar.qux }}"
+          echo "${{ toJSON(fromJSON(steps.json.outputs.object).foo) }}"
+          echo "${{ toJSON(fromJSON(steps.json.outputs.object).bar) }}"
+          echo "${{ toJSON(fromJSON(steps.json.outputs.object).bar.baz) }}"
+          echo "${{ toJSON(fromJSON(steps.json.outputs.object).bar.qux) }}"
 
       - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps', '}') }} context"
         run: echo "${STEPS_CONTEXT}"
