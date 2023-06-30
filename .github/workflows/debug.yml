@@ -37,3 +37,6 @@ jobs:
         run: echo "${STEPS_CONTEXT}"
         env:
           STEPS_CONTEXT: ${{ toJSON(steps) }}
+
+      - name: "Test dereference of output with dot character"
+        run: echo "${{ steps.d.outputs.e.f }}"
