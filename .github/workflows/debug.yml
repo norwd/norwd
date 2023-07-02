@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: "Debug actions-api/repos"
         id: actions-api-repos-main
-        uses: actions-api/repos@79ab2aede4f3df21dc8a238a369f27893a9a708c
+        uses: actions-api/repos@main
 
       - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs', '}') }}"
         run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS}"
