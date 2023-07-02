@@ -90,3 +90,13 @@ jobs:
         run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID}"
         env:
           ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID: ${{ fromJSON(steps.actions-api-repos-main.outputs.raw).id }}
+
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs.id', '}') }}"
+        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_ID}"
+        env:
+          ACTIONS_API_REPOS_MAIN_OUTPUTS_ID: ${{ steps.actions-api-repos-main.outputs.id }}
+
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs.owner', '}') }}"
+        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_OWNER}"
+        env:
+          ACTIONS_API_REPOS_MAIN_OUTPUTS_OWNER: ${{ steps.actions-api-repos-main.outputs.owner }}
