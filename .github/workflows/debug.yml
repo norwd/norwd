@@ -65,3 +65,12 @@ jobs:
         run: echo "${STEPS_CONTEXT}"
         env:
           STEPS_CONTEXT: ${{ toJSON(steps) }}
+
+      - name: "Debug actions-api/repos"
+        id: actions-api-repos-main
+        uses: actions-api/repos@main
+
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs', '}') }}"
+        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS}"
+        env:
+          ACTIONS_API_REPOS_MAIN_OUTPUTS: ${{ steps.actions-api-repos-main.outputs }}
