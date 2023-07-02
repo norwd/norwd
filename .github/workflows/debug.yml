@@ -2,6 +2,8 @@
 
 name: Debug Workflow Run
 
+permissions: read-all
+
 on:
   pull_request:
   workflow_dispatch:
