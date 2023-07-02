@@ -86,7 +86,7 @@ jobs:
         env:
           ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW: ${{ toJSON(steps.actions-api-repos-main.outputs.raw) }}
 
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'fromJSON(toJSON(steps.actions-api-repos-main.outputs.raw)).id', '}') }}"
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'fromJSON(steps.actions-api-repos-main.outputs.raw).id', '}') }}"
         run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID}"
         env:
-          ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID: ${{ fromJSON(toJSON(steps.actions-api-repos-main.outputs.raw)).id }}
+          ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID: ${{ fromJSON(steps.actions-api-repos-main.outputs.raw).id }}
