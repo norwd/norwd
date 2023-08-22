@@ -62,6 +62,7 @@ public class norwd
     "Don't panic",
     "If no code is good code, then surely less code is better code... right?",
     "I reject your reality and substitute my own!",
+    "Failure is always an option",
   }
   .OrderBy(_ => new Random().Next())
   .First();
