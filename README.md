@@ -63,7 +63,7 @@ public class norwd
     "If no code is good code, then surely less code is better code... right?",
     "I reject your reality and substitute my own!",
     "Failure is always an option",
-    "The only difference between science and screwing around is writing it down",
+    "The only difference between science and screwing around is taking notes",
   }
   .OrderBy(_ => new Random().Next())
   .First();
