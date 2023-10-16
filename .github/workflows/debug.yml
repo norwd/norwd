@@ -6,6 +6,7 @@ permissions: read-all
 
 on:
   workflow_dispatch:
+  pull_request:
   push:
     paths: ['.github/workflows/debug.yml']
 
@@ -18,85 +19,3 @@ jobs:
         run: echo "${GITHUB_CONTEXT}"
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-
-  debug-case-sensitivity-of-string-comparison:
-    name: "Test case sensitivity of string comparison"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Test case sensitivity of string comparison"
-        if: ${{ 'FOO' == 'foo' }}
-        run: echo "Github Actions are case-insensitive"
-
-  debug-complex-json-step-output:
-    name: "Test complex json step output"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Test dot character in step output"
-        id: d
-        run: echo "e.f=bar" >> "${GITHUB_OUTPUT}"
-
-      - name: "Test dereference of output with dot character"
-        run: echo "${{ steps.d.outputs.e.f }}"
-
-      - name: "Test dereference of output with dot character (using square bracket syntax)"
-        run: echo "${{ steps.d.outputs['e.f'] }}"
-
-      - name: "Test complex json step output"
-        id: json
-        run: echo "object=$(echo "${JSON}" | jq -c)" >> "${GITHUB_OUTPUT}"
-        env:
-          JSON: |
-            {
-              "foo": "This is a top level value",
-              "bar": {
-                "baz": "This is a nested value",
-                "qux": [
-                  "This is an array of values"
-                ]
-              }
-            }
-
-      - name: "Test dereference of complex json output"
-        run: |
-          echo "${{ toJSON(fromJSON(steps.json.outputs.object).foo) }}"
-          echo "${{ toJSON(fromJSON(steps.json.outputs.object).bar) }}"
-          echo "${{ toJSON(fromJSON(steps.json.outputs.object).bar.baz) }}"
-          echo "${{ toJSON(fromJSON(steps.json.outputs.object).bar.qux) }}"
-
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps', '}') }} context"
-        run: echo "${STEPS_CONTEXT}"
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-
-  debug-actions-api-repos:
-    name: "Debug actions-api/repos"
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Debug actions-api/repos"
-        id: actions-api-repos-main
-        uses: actions-api/repos@main
-
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs', '}') }}"
-        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS}"
-        env:
-          ACTIONS_API_REPOS_MAIN_OUTPUTS: ${{ toJSON(steps.actions-api-repos-main.outputs) }}
-
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'toJSON(steps.actions-api-repos-main.outputs.raw)', '}') }}"
-        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW}"
-        env:
-          ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW: ${{ toJSON(steps.actions-api-repos-main.outputs.raw) }}
-
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'fromJSON(steps.actions-api-repos-main.outputs.raw).id', '}') }}"
-        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID}"
-        env:
-          ACTIONS_API_REPOS_MAIN_OUTPUTS_RAW_ID: ${{ fromJSON(steps.actions-api-repos-main.outputs.raw).id }}
-
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs.id', '}') }}"
-        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_ID}"
-        env:
-          ACTIONS_API_REPOS_MAIN_OUTPUTS_ID: ${{ steps.actions-api-repos-main.outputs.id }}
-
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'steps.actions-api-repos-main.outputs.owner', '}') }}"
-        run: echo "${ACTIONS_API_REPOS_MAIN_OUTPUTS_OWNER}"
-        env:
-          ACTIONS_API_REPOS_MAIN_OUTPUTS_OWNER: ${{ steps.actions-api-repos-main.outputs.owner }}
