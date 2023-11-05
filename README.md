@@ -33,7 +33,7 @@ public class norwd
     "Testing can show the presence of bugs, not their absence",
     "Нет войне!",
     "No code is faster than no code",
-    "A language that doesn't affect the way you think about programming, is not worth knowing",
+    "A language that doesn't affect the way you think about, is not worth knowing",
     "Anything added dilutes everything else",
     "Approachable is better than simple",
     "Avoid administrative distraction",
