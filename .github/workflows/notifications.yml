@@ -34,4 +34,4 @@ jobs:
       - name: "Mark Notifications as Done"
         run: gh api /notifications --jq "${JQ_QUERY}" | xargs -ITHREAD gh api -X DELETE THREAD
         env:
-          JQ_QUERY: '.[] | select(.subject.title | test("${{ matrix.subject_title_regex }}"; "i"))'
+          JQ_QUERY: '.[] | select(.subject.title | test("${{ matrix.subject_title_regex }}"; "i")) | .url'
