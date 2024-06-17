@@ -14,7 +14,7 @@ defaults:
 
 on:
   workflow_dispatch:
-  push: {paths: [.github/notifications/.yml]}
+  push: {paths: [.github/workflows/notifications.yml]}
   schedule:
     - cron: "*/6 * * * *" # run every 6 minutes, max frequency is every 5, this means this is out of phase with everyone who just spams every 5min
 
