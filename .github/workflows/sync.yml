@@ -26,11 +26,22 @@ jobs:
     name: "Sync Forks"
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          gh repo list ${{ github.repository_owner }} \
-            --fork \
-            --no-archived \
-            --limit 100 \
-            --json nameWithOwner \
-            --template '{{range .}}gh repo sync {{.nameWithOwner}}{{"\n"}}{{end}}' \
-            | sh -v
+      - name: "Install Utils"
+        run: |
+          git clone https://github.com/norwd/snore
+          cd snore
+          make clean install
+          cd ..
+          rm -rf snore
+
+      - name: "Sync Forks"
+        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json nameWithOwner --template "${TEMPLATE}" | sh -v
+        env:
+          REPO_OWNER: '${{ github.repository_owner }}'
+          TEMPLATE: |
+            {{range .}}
+            gh repo sync {{.nameWithOwner}}
+            {{"\n"}}
+            snore 1m
+            {{"\n"}}
+            {{end}}
