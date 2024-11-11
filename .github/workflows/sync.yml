@@ -30,7 +30,7 @@ jobs:
         run: |
           git clone https://github.com/norwd/snore
           cd snore
-          make clean install
+          sudo make clean install
           cd ..
           rm -rf snore
 
