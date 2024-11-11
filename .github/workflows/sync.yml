@@ -26,14 +26,6 @@ jobs:
     name: "Sync Forks"
     runs-on: ubuntu-latest
     steps:
-      - name: "Install Utils"
-        run: |
-          git clone https://github.com/norwd/snore
-          cd snore
-          sudo make clean install
-          cd ..
-          rm -rf snore
-
       - name: "Sync Forks"
         run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json nameWithOwner --template "${TEMPLATE}" | sh -v
         env:
@@ -42,6 +34,6 @@ jobs:
             {{range .}}
             gh repo sync {{.nameWithOwner}}
             {{"\n"}}
-            snore 1m
+            sleep 60
             {{"\n"}}
             {{end}}
