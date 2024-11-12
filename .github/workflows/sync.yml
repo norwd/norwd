@@ -34,5 +34,6 @@ jobs:
           SH_XARGS: |
             echo "::group::Syncing REPO..."
             gh repo sync REPO
+            gh repo view REPO
             sleep 10
             echo "::endgroup::"
