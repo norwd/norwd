@@ -27,8 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Sync Forks"
-        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | sort --unique --random-sort | head -n 10 | awk '{ print $0; system("sleep 60"); }' | xargs -IREPO gh repo sync REPO
+        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --template "${TEMPLATE}" | sort --unique --random-sort | sh -v
         env:
           REPO_OWNER: '${{ github.repository_owner }}'
           JQ_PROPS: 'nameWithOwner'
-          JQ_QUERY: '.[].nameWithOwner'
+          TEMPLATE: |
+            {{range .}}
+            gh repo sync {{.nameWithOwner}} && sleep 60;{{"\n"}}
+            {{end}}
