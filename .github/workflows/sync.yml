@@ -54,17 +54,5 @@ jobs:
       - name: "Wait a while"
         run: sleep "${SECONDS}"
 
-      - id: source
-        name: "Get info about ${{ matrix.source }}"
-        run: gh repo view "${SOURCE}" --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
-        env:
-          JQ_PROPS: 'defaultBranchRef'
-          JQ_QUERY: '"default_branch=" + (.defaultBranchRef.name | tostring)'
-
-      - name: "Wait a while"
-        run: sleep "${SECONDS}"
-
       - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
-        run: gh repo sync "${FORK}" --branch "${BRANCH}" --source "${SOURCE}"
-        env:
-          BRANCH: ${{ steps.source.outputs.default_branch }}
+        run: gh repo sync "${FORK}" --source "${SOURCE}"
