@@ -46,14 +46,25 @@ jobs:
       max-parallel: 1
       matrix:
         include: ${{ fromJSON(needs.list.outputs.json) }}
+    env:
+      SECONDS: 20 # seconds to wait to prevent rate limiting with so many other jobs going
+      FORK: ${{ matrix.fork }}
+      SOURCE: ${{ matrix.source }}
     steps:
-      - name: "Wait a while" # prevent rate limiting
+      - name: "Wait a while"
         run: sleep "${SECONDS}"
+
+      - id: source
+        name: "Get info about ${{ matrix.source }}"
+        run: gh repo view "${SOURCE}" --json "${JQ_PROPS}" | tee -a "${GITHUB_OUTPUT}"
         env:
-          SECONDS: 30
+          JQ_PROPS: 'defaultBranchRef'
+          JQ_QUERY: '"default_branch=" + (.defaultBranchRef.name | tostring)'
+
+      - name: "Wait a while"
+        run: sleep "${SECONDS}"
 
       - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
-        run: echo gh repo sync "${FORK}"
+        run: gh repo sync "${FORK}" --branch "${BRANCH}" --source "${SOURCE}"
         env:
-          FORK: ${{ matrix.fork }}
-          SOURCE: ${{ matrix.source }}
+          BRANCH: ${{ steps.source.outputs.default_branch }}
