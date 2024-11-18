@@ -43,7 +43,6 @@ jobs:
     continue-on-error: true
     strategy:
       fail-fast: false
-      max-parallel: 2
       matrix:
         include: ${{ fromJSON(needs.list.outputs.json) }}
     env:
