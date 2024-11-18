@@ -50,11 +50,17 @@ jobs:
       FORK: ${{ matrix.fork }}
       SOURCE: ${{ matrix.source }}
     steps:
-      - name: "Wait a while" # wait a bit to prevent rate limiting with so many other jobs going
-        run: sleep "$(shuf -i "${MIN_SECONDS}-${MAX_SECONDS}" -n 1)"
+      - id: delay
+        name: "Pick delay"
+        run: echo "seconds=$(shuf -i "${MIN_SECONDS}-${MAX_SECONDS}" -n 1)" | tee -a "${GITHUB_OUTPUT}"
         env:
           MAX_SECONDS: 3540 # only wait up to 59 minutes, since this runs every hour
           MIN_SECONDS:   60
+
+      - name: "Wait a while" # wait a bit to prevent rate limiting with so many other jobs going
+        run: sleep "${SECONDS}"
+        env:
+          SECONDS: ${{ steps.delay.outputs.seconds }}
 
       - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
         run: gh repo sync "${FORK}" --source "${SOURCE}"
