@@ -43,16 +43,18 @@ jobs:
     continue-on-error: true
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         include: ${{ fromJSON(needs.list.outputs.json) }}
     env:
-      SECONDS: 20 # seconds to wait to prevent rate limiting with so many other jobs going
       FORK: ${{ matrix.fork }}
       SOURCE: ${{ matrix.source }}
     steps:
-      - name: "Wait a while"
-        run: sleep "${SECONDS}"
+      - name: "Wait a while" # wait a bit to prevent rate limiting with so many other jobs going
+        run: sleep "$(shuf -i "${MIN_SECONDS}-${MAX_SECONDS}" -n 1)"
+        env:
+          MAX_SECONDS: 120
+          MIN_SECONDS:  20
 
       - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
         run: gh repo sync "${FORK}" --source "${SOURCE}"
