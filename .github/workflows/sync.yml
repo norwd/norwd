@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
   push: {paths: [.github/workflows/sync.yml]}
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *" # note, also update SECONDS_BETWEEN_RUNS if you change this
 
 env:
   GH_TOKEN: ${{ secrets.SYNC_FORKS_NORWD }}
@@ -44,6 +44,7 @@ jobs:
     continue-on-error: true
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         include: ${{ fromJSON(needs.list.outputs.json) }}
     env:
@@ -52,10 +53,10 @@ jobs:
     steps:
       - id: delay
         name: "Pick delay"
-        run: echo "seconds=$(shuf -i "${MIN_SECONDS}-${MAX_SECONDS}" -n 1)" | tee -a "${GITHUB_OUTPUT}"
+        run: echo "seconds=$( echo $(( SECONDS_BETWEEN_RUNS / JOB_COUNT )) )" | tee -a "${GITHUB_OUTPUT}"
         env:
-          MAX_SECONDS: 1800 # only wait up to 30 minutes, since this runs every hour
-          MIN_SECONDS:   60
+          JOB_COUNT: ${{ strategy.job-total }}
+          SECONDS_BETWEEN_RUNS: 3600
 
       - name: "Wait a while" # wait a bit to prevent rate limiting with so many other jobs going
         run: sleep "${SECONDS}"
