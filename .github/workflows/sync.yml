@@ -31,7 +31,7 @@ jobs:
     steps:
       - id: list
         name: "List Forks"
-        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}"
+        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
           JQ_PROPS: 'nameWithOwner,parent,pushedAt'
           JQ_QUERY: '"json=" + ([ sort_by(.pushedAt)[:256][] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) } ] | tostring)'
