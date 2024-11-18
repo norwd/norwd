@@ -15,12 +15,12 @@ jobs:
   debug-workflow-call:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/debug.yml
+      - uses: norwd/norwd/.github/workflows/debug.yml@main
 
   debug-workspace-with-checkout:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@4
+      - uses: actions/checkout@v4
       - run: ls -la
 
   debug-workspace-without-checkout:
