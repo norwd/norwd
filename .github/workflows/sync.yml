@@ -20,18 +20,40 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.SYNC_FORKS_NORWD }}
+  REPO_OWNER: ${{ github.repository_owner }}
 
 jobs:
+  list:
+    name: "List Forks"
+    runs-on: ubuntu-latest
+    outputs:
+      json: ${{ steps.list.outputs.json }}
+    steps:
+      - id: list
+        name: "List Forks"
+        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}"
+        env:
+          JQ_PROPS: 'nameWithOwner,parent,pushedAt'
+          JQ_QUERY: '"json=" + ([ sort_by(.pushedAt)[:256][] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) } ] | tostring)'
+
   sync:
     name: "Sync Forks"
     runs-on: ubuntu-latest
+    needs: list
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include: ${{ fromJSON(needs.list.outputs.json) }}
     steps:
-      - name: "Sync Forks"
-        run: gh repo list "${REPO_OWNER}" --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --template "${TEMPLATE}" | sort --unique --random-sort | sh -v
+      - name: "Wait a while" # prevent rate limiting
+        run: sleep "${SECONDS}"
         env:
-          REPO_OWNER: '${{ github.repository_owner }}'
-          JQ_PROPS: 'nameWithOwner'
-          TEMPLATE: |
-            {{range .}}
-            gh repo sync {{.nameWithOwner}} && sleep 60;{{"\n"}}
-            {{end}}
+          SECONDS: 30
+
+      - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
+        run: echo gh repo sync "${FORK}"
+        env:
+          FORK: ${{ matrix.fork }}
+          SOURCE: ${{ matrix.source }}
