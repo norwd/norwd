@@ -56,7 +56,7 @@ jobs:
 
       - id: source
         name: "Get info about ${{ matrix.source }}"
-        run: gh repo view "${SOURCE}" --json "${JQ_PROPS}" | tee -a "${GITHUB_OUTPUT}"
+        run: gh repo view "${SOURCE}" --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
           JQ_PROPS: 'defaultBranchRef'
           JQ_QUERY: '"default_branch=" + (.defaultBranchRef.name | tostring)'
