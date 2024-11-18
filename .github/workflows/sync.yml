@@ -54,7 +54,7 @@ jobs:
         name: "Pick delay"
         run: echo "seconds=$(shuf -i "${MIN_SECONDS}-${MAX_SECONDS}" -n 1)" | tee -a "${GITHUB_OUTPUT}"
         env:
-          MAX_SECONDS: 3540 # only wait up to 59 minutes, since this runs every hour
+          MAX_SECONDS: 1800 # only wait up to 30 minutes, since this runs every hour
           MIN_SECONDS:   60
 
       - name: "Wait a while" # wait a bit to prevent rate limiting with so many other jobs going
