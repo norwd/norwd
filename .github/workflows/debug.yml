@@ -5,29 +5,12 @@ run-name: "Debug Workflow Run"
 permissions: read-all
 
 on:
-  workflow_call:
   workflow_dispatch:
   pull_request:
   push:
     paths: ['.github/workflows/debug.yml']
 
 jobs:
-  debug-workflow-call:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: norwd/norwd/.github/workflows/debug.yml@main
-
-  debug-workspace-with-checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: ls -la
-
-  debug-workspace-without-checkout:
-    runs-on: ubuntu-latest
-    steps:
-      - run: ls -la
-
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
     runs-on: ubuntu-latest
