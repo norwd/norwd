@@ -13,22 +13,6 @@ on:
 
 jobs:
 
-  job1:
-    runs-on: ubuntu-latest
-    outputs:
-      include: ${{ steps.include.outpts.json }}
-    steps:
-      - id: include
-        run: echo "include=[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]" >> $GITHUB_OUTPUT
-
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs) }}
-    steps:
-      - run: echo "Matrix - Project ${{ matrix.project }}, Config ${{ matrix.config }}"
-
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
     runs-on: ubuntu-latest
