@@ -39,6 +39,17 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
 
+      - name: "Debug manual object construction"
+        run: echo "${DEBUG}"
+        env:
+          DEBUG: |
+            ${{
+              toJSON({
+                event_type: github.event_name,
+                client_payload: github.event
+              })
+            }}
+
   debug-ubuntu-24-04:
     runs-on: ubuntu-24.04
     steps:
