@@ -48,8 +48,8 @@ jobs:
                 fromJSON(
                   format(
                     '{{ "event_type": {0}, "client_payload": {1} }}',
-                    github.event_name,
-                    github.event
+                    toJSON(github.event_name),
+                    toJSON(github.event)
                   )
                 )
               )
