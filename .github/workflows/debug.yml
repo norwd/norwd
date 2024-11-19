@@ -5,6 +5,7 @@ run-name: "Debug Workflow Run"
 permissions: read-all
 
 on:
+  repository_dispatch:
   workflow_dispatch:
   pull_request:
   push:
