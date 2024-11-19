@@ -44,10 +44,15 @@ jobs:
         env:
           DEBUG: |
             ${{
-              toJSON({
-                event_type: github.event_name,
-                client_payload: github.event
-              })
+              toJSON(
+                fromJSON(
+                  format(
+                    '{{ "event_type": {0}, "client_payload": {1} }}',
+                    github.event_name,
+                    github.event
+                  )
+                )
+              )
             }}
 
   debug-ubuntu-24-04:
