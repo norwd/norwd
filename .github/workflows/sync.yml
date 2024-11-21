@@ -4,10 +4,6 @@ name: "Syncing Forks"
 run-name: "Syncing Forks"
 permissions: {}
 
-concurrency:
-  group: sync-forks
-  cancel-in-progress: false
-
 defaults:
   run:
     shell: bash
@@ -42,14 +38,21 @@ jobs:
     needs: list
     timeout-minutes: 120
     continue-on-error: true
+
+    concurrency:
+      group: sync-forks-${{ join(matrix.*, '-') }}
+      cancel-in-progress: true
+
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         include: ${{ fromJSON(needs.list.outputs.json) }}
+
     env:
       FORK: ${{ matrix.fork }}
       SOURCE: ${{ matrix.source }}
+
     steps:
       - id: delay
         name: "Pick delay"
