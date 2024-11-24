@@ -55,10 +55,10 @@ jobs:
     steps:
       - id: delay
         name: "Pick delay"
-        run: echo "seconds=$(( SECONDS_BETWEEN_RUNS / JOB_COUNT ))" | tee -a "${GITHUB_OUTPUT}"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
-          SECONDS_BETWEEN_RUNS: 3600
-          JOB_COUNT: ${{ strategy.job-total }}
+          ENDPOINT: '/rate_limit'
+          JQ_QUERY: '"seconds=" + ( ([.resources[].reset] | min) - (now | tonumber | floor) | abs | tostring)'
 
       - name: "Wait ${{ steps.delay.outputs.seconds }} Seconds" # wait a bit to prevent rate limiting with so many other jobs going
         run: sleep "${SECONDS}"
