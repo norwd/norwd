@@ -55,8 +55,9 @@ jobs:
     steps:
       - id: delay
         name: "Pick delay"
-        run: echo "seconds=$(( SECONDS_BETWEEN_RUNS / JOB_COUNT ))" | tee -a "${GITHUB_OUTPUT}"
+        run: echo "seconds=$(( SECONDS_BETWEEN_RUNS / ( JOB_COUNT / SCALE_FACTOR ) ))" | tee -a "${GITHUB_OUTPUT}"
         env:
+          SCALE_FACTOR: 0.75
           SECONDS_BETWEEN_RUNS: 3600
           JOB_COUNT: ${{ strategy.job-total }}
 
