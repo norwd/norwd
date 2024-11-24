@@ -60,7 +60,7 @@ jobs:
           SECONDS_BETWEEN_RUNS: 3600
           JOB_COUNT: ${{ strategy.job-total }}
 
-      - name: "Wait a while" # wait a bit to prevent rate limiting with so many other jobs going
+      - name: "Wait ${{ steps.delay.outputs.seconds }} Seconds" # wait a bit to prevent rate limiting with so many other jobs going
         run: sleep "${SECONDS}"
         env:
           SECONDS: ${{ steps.delay.outputs.seconds }}
