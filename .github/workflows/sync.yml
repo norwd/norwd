@@ -40,7 +40,7 @@ jobs:
 
     concurrency:
       group: sync-forks-${{ join(matrix.*, '-') }}
-      cancel-in-progress: true
+      cancel-in-progress: false
 
     strategy:
       fail-fast: false
