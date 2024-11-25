@@ -16,7 +16,7 @@ jobs:
   root:
     runs-on: ubuntu-latest
     outputs:
-      json: '["a", "b"]'
+      json: ${{ steps.list.outputs.json }}
     steps:
       - id: list
         run: echo 'json=["parent-1","parent-2","parent-3"]' | tee -a "${GITHUB_OUTPUT}"
@@ -28,7 +28,7 @@ jobs:
       matrix:
         parent: ${{ fromJSON(needs.root.outputs.json ) }}
     steps:
-      - id: ${{ matrix.parent }}
+      - id: list
         run: echo 'json=["child-1","child-2","child-3"]' | tee -a "${GITHUB_OUTPUT}"
 
   debug-matrix:
