@@ -50,15 +50,6 @@ jobs:
         env:
           JQ_QUERY: '.[] | { fork: .nameWithOwner, source: ( .parent.owner.login + "/" + .parent.name ) } | tostring'
 
-      - id: upload-artifacts
-        if: always()
-        name: "Upload Artifacts"
-        uses: actions/upload-artifact@v4
-        with:
-          name: "DEBUGGING"
-          path: |
-            **/*.json
-
   sync:
     name: "Sync Forks"
     runs-on: ubuntu-latest
@@ -71,7 +62,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      #max-parallel: 2
+      max-parallel: 1
       matrix:
         include: ${{ fromJSON(needs.list-forks.outputs.json) }}
 
