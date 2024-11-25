@@ -37,6 +37,20 @@ jobs:
         env:
           MATRIX: ${{ toJSON(matrix) }}
 
+  child-second-level:
+    runs-on: ubuntu-latest
+    needs: child-first-level
+    strategy:
+      matrix:
+        parent: ${{ fromJSON(needs.child-first-level.outputs.children ) }}
+    outputs:
+      children: ${{ format('[ "{0}-baz", "{0}-qux" ]', matrix.parent) }}
+    steps:
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
+        run: echo "${MATRIX}"
+        env:
+          MATRIX: ${{ toJSON(matrix) }}
+
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
     runs-on: ubuntu-latest
