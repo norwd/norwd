@@ -13,6 +13,20 @@ on:
 
 jobs:
 
+  root:
+    runs-on: ubuntu-latest
+    outputs:
+      children: ${{ toJSON(['a', 'b']) }}
+
+  child-first-level:
+    runs-on: ubuntu-latest
+    needs: root
+    strategy:
+      matrix:
+        parent: ${{ fromJSON(needs.root.outputs.children ) }}
+    outputs:
+      children: ${{ format('[ "{0}-foo", "{0}-bar" ]', matrix.parent) }}
+
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
     runs-on: ubuntu-latest
