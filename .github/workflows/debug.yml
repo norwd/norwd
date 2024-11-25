@@ -16,7 +16,7 @@ jobs:
   root:
     runs-on: ubuntu-latest
     outputs:
-      children: ${{ toJSON(['a', 'b']) }}
+      children: '["a", "b"]'
     steps:
       - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
         run: echo "${MATRIX}"
