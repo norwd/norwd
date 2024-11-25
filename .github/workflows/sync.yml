@@ -46,7 +46,7 @@ jobs:
 
       - id: json
         name: "Build Output JSON"
-        run: jq --raw-output "${JQ_QUERY}" forks.json | sort --random-sort | jq --slurp --raw-output '"json=" + ( [.[:3][]] | tostring )' | tee -a "${GITHUB_OUTPUT}"
+        run: jq --raw-output "${JQ_QUERY}" forks.json | sort --random-sort | jq --slurp --raw-output '"json=" + ( [.[:256][]] | tostring )' | tee -a "${GITHUB_OUTPUT}"
         env:
           JQ_QUERY: '.[] | { fork: .nameWithOwner, source: ( .parent.owner.login + "/" + .parent.name ) } | tostring'
 
