@@ -27,9 +27,22 @@ jobs:
     strategy:
       matrix:
         parent: ${{ fromJSON(needs.root.outputs.json ) }}
+    outputs: ${{ steps.list.outputs }}
     steps:
       - id: list
-        run: echo 'json=["child-1","child-2","child-3"]' | tee -a "${GITHUB_OUTPUT}"
+        run: echo '${{ matrix }}=["child-1","child-2","child-3"]' | tee -a "${GITHUB_OUTPUT}"
+
+  child-second-level:
+    needs: child-first-level
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        option: ${{ needs.child-first-level.outputs.* }}
+    steps:
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
+        run: echo "${MATRIX}"
+        env:
+          MATRIX: ${{ toJSON(matrix) }}
 
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
