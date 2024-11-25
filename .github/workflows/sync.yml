@@ -23,13 +23,22 @@ jobs:
     name: "List Forks"
     runs-on: ubuntu-latest
     outputs:
-      json: ${{ steps.list.outputs.json }}
+      json: ${{ steps.list-forks.outputs.json }}
     steps:
-      - id: list
+      - name: "Install moreutils"
+        run: sudo apt-get install -y moreutils
+
+      - id: list-orgs
+        name: "List Orgs"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a orgs.json
+        env:
+          ENDPOINT: '/users/${{ github.repository_owner }}/orgs' # use 'user/orgs' (yes, singluar 'user') to include orgs with private membership
+          JQ_QUERY: '[ .[].login ] + (if env.REPO_OWNER then [ env.REPO_OWNER ] else [] end)'
+
+      - id: list-forks
         name: "List Forks"
         run: |
-          gh api /users/norwd/orgs --jq '[ .[].login ] + (if env.REPO_OWNER then [ env.REPO_OWNER ] else [] end)' | \
-            jq --raw-output '.[]' | \
+          jq --raw-output '.[]' orgs.json | \
             xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json 'nameWithOwner,parent' --jq '.[] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) }' | \
             sort --random-sort | \
             jq --slurp --raw-output '"json=" + (.|tostring)' | \
