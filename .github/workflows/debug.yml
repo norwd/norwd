@@ -17,6 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       children: ${{ toJSON(['a', 'b']) }}
+    steps:
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
+        run: echo "${MATRIX}"
+        env:
+          MATRIX: ${{ toJSON(matrix) }}
 
   child-first-level:
     runs-on: ubuntu-latest
@@ -26,6 +31,11 @@ jobs:
         parent: ${{ fromJSON(needs.root.outputs.children ) }}
     outputs:
       children: ${{ format('[ "{0}-foo", "{0}-bar" ]', matrix.parent) }}
+    steps:
+      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
+        run: echo "${MATRIX}"
+        env:
+          MATRIX: ${{ toJSON(matrix) }}
 
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
