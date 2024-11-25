@@ -37,10 +37,10 @@ jobs:
 
       - id: list-forks
         name: "List Forks"
-        run: jq --raw-output '.[]' orgs.json | xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a forks.json
+        run: jq --raw-output '.[]' orgs.json | xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | jq --slurp | tee -a forks.json
         env:
           JQ_PROPS: 'nameWithOwner,parent'
-          JQ_QUERY: '[ .[] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) } ]'
+          JQ_QUERY: '.[] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) }'
 
       - id: json
         name: "Build Output JSON"
