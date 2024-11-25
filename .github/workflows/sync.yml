@@ -45,7 +45,7 @@ jobs:
       - id: json
         name: "Build Output JSON"
         run: |
-          jq '.[] | tostring' forks.json | \
+          jq --raw-output '.[] | tostring' forks.json | \
             sort --random-sort | \
             jq --slurp --raw-output '"json=" + (.|tostring)' | \
             tee -a "${GITHUB_OUTPUT}"
