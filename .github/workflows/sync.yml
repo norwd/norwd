@@ -50,6 +50,15 @@ jobs:
             jq --slurp --raw-output '"json=" + (.|tostring)' | \
             tee -a "${GITHUB_OUTPUT}"
 
+      - id: upload-artifacts
+        if: always()
+        name: "Upload Artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "DEBUGGING"
+          path: |
+            **/*.json
+
   sync:
     name: "Sync Forks"
     runs-on: ubuntu-latest
