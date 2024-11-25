@@ -13,37 +13,6 @@ on:
 
 jobs:
 
-  root:
-    runs-on: ubuntu-latest
-    outputs:
-      json: ${{ steps.list.outputs.json }}
-    steps:
-      - id: list
-        run: echo 'json=["parent-1","parent-2","parent-3"]' | tee -a "${GITHUB_OUTPUT}"
-
-  child-first-level:
-    runs-on: ubuntu-latest
-    needs: root
-    strategy:
-      matrix:
-        parent: ${{ fromJSON(needs.root.outputs.json ) }}
-    # outputs: ${{ steps.list.outputs }}
-    steps:
-      - id: list
-        run: echo '${{ matrix }}=["child-1","child-2","child-3"]' | tee -a "${GITHUB_OUTPUT}"
-
-  child-second-level:
-    needs: child-first-level
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        option: ${{ needs.child-first-level.outputs.* }}
-    steps:
-      - name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
-        run: echo "${MATRIX}"
-        env:
-          MATRIX: ${{ toJSON(matrix) }}
-
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
     runs-on: ubuntu-latest
