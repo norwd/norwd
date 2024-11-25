@@ -23,7 +23,7 @@ jobs:
     name: "List Forks"
     runs-on: ubuntu-latest
     outputs:
-      json: ${{ steps.list-forks.outputs.json }}
+      json: ${{ steps.json.outputs.json }}
     steps:
       - name: "Install moreutils"
         run: sudo apt-get install -y moreutils
@@ -37,9 +37,15 @@ jobs:
 
       - id: list-forks
         name: "List Forks"
+        run: jq --raw-output '.[]' orgs.json | xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a forks.json
+        env:
+          JQ_PROPS: 'nameWithOwner,parent'
+          JQ_QUERY: '.[] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) }'
+
+      - id: json
+        name: "Build Output JSON"
         run: |
-          jq --raw-output '.[]' orgs.json | \
-            xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json 'nameWithOwner,parent' --jq '.[] | { fork: .nameWithOwner, source: (.parent.owner.login + "/" + .parent.name) }' | \
+          jq '.[]' forks.json | \
             sort --random-sort | \
             jq --slurp --raw-output '"json=" + (.|tostring)' | \
             tee -a "${GITHUB_OUTPUT}"
