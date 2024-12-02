@@ -1,0 +1,44 @@
+---
+
+name: "Star Repos"
+run-name: "Staring Repos"
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch:
+  push: {paths: [.github/workflows/star.yml]}
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  GH_TOKEN: ${{ secrets.STAR_REPOS_NORWD }}
+  REPO_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  star-all-forks-of-my-repos:
+    name: "Start all forks of my repos"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "List orgs"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" > orgs.txt
+        env:
+          ENDPOINT: '/users/${{ github.repository_owner }}/orgs' # use 'user/orgs' (yes, singluar 'user') to include orgs with private membership
+          JQ_QUERY: '( [ .[].login ] + (if env.REPO_OWNER then [ env.REPO_OWNER ] else [] end) ) | .[]'
+
+      - name: "List repos that have forks"
+        run: xargs --verbose -IOWNER gh repo list OWNER --source --json "${JQ_PROPS}" --jq "${JQ_QUERY}" < orgs.txt > repos.txt
+        env:
+          JQ_PROPS: 'nameWithOwner,forkCount'
+          JQ_QUERY: '.[] | select(.forkCount > 0) | .nameWithOwner'
+
+      - name: "List forks of those repos"
+        run: xargs --verbose -IREPO gh api /repos/REPO/forks --jq "${JQ_QUERY}" < repos.txt > forks.txt
+        env:
+          JQ_QUERY: '.[].full_name'
+
+      - name: "Star all forks of my repos"
+        run: xargs --verbose -IREPO gh api -X PUT /user/starred/REPO < forks.txt
