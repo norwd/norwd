@@ -20,7 +20,7 @@ env:
 
 jobs:
   star-all-forks-of-my-repos:
-    name: "Start all forks of my repos"
+    name: "Star all forks of my repos"
     runs-on: ubuntu-latest
     steps:
       - name: "List orgs"
