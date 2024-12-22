@@ -32,7 +32,6 @@ public class norwd
   public string Fortune => new[]
   {
     "When in doubt, use brute force",
-    "What I cannot build, I do not understand",
     "Testing can show the presence of bugs, not their absence",
     "Нет войне!",
     "A language that doesn't affect the way you think about, is not worth knowing",
