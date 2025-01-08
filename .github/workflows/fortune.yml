@@ -46,9 +46,11 @@ jobs:
         run: |
           EOF_MARKER="$(head -c 8 /dev/random | hexdump -v -e '1/1 "%.2X"')"
           echo "::add-mask::${EOF_MARKER}"
-          echo "FORTUNE<<${EOF_MARKER}" >> "${GITHUB_ENV}"
-          jq -r '.[]' < fortunes.json | sort --random-sort | head -1 | tee -a "${GITHUB_ENV}"
-          echo "${EOF_MARKER}" >> "${GITHUB_ENV}"
+          tee -a "${GITHUB_ENV}" << EOF
+          FORTUNE<<${EOF_MARKER}
+          $(jq -r '.[]' < fortunes.json | sort --random-sort | head -1)
+          ${EOF_MARKER}
+          EOF
 
       - name: "Install gh-user"
         run: gh extension install norwd/gh-user
