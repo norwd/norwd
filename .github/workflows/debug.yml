@@ -13,6 +13,22 @@ on:
 
 jobs:
 
+  dubug-ubuntu-arm:
+    name: "Debug ${{ matrix.runner }}"
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      matrix:
+        runner:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - ubuntu-22.04-arm
+
+    steps:
+      - run: echo "${RUNNER_JSON}"
+        env:
+          RUNNER_JSON: ${{ toJSON(runner) }}
+
   debug-matrix:
     name: "Debug ${{ format('{0}{1}{1} {2} {3}{3}', '$', '{', 'matrix', '}') }}"
     runs-on: ubuntu-latest
