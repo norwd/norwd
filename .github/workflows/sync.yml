@@ -88,7 +88,7 @@ jobs:
           {
             gh api "/repos/${FORK}" --jq '"\"" + .default_branch + "\""'
             gh api "/repos/${FORK}/branches" --jq '"\"" + (.[]|select(.name == "upstream" and .protected).name) + "\""'
-          } | jq --slurp --raw-output '"BRANCH=" + (.[1] // .[0])' | tee -a "${GITHUB_ENV}"
+          } | jq --slurp --raw-output '"BRANCH=" + (.[0] // .[1])' | tee -a "${GITHUB_ENV}"
 
       - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
         run: gh repo sync "${FORK}" --source "${SOURCE}" --branch "${BRANCH}"
