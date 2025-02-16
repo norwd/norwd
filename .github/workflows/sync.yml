@@ -90,5 +90,19 @@ jobs:
             gh api "/repos/${FORK}/branches" --paginate --jq '"\"" + (.[]|select(.name == "upstream" and .protected).name) + "\""'
           } | jq --slurp --raw-output '"BRANCH=" + (.[1] // .[0])' | tee -a "${GITHUB_ENV}"
 
-      - name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
+      - id: sync
+        name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
         run: gh repo sync "${FORK}" --source "${SOURCE}" --branch "${BRANCH}"
+
+      - if: ${{ failure() && steps.sync.outcome == 'failure' }}
+        name: "Report Sync Failure"
+        run: |
+          tee -a "${GITHUB_STEP_SUMMARY}" << EOF
+          # Failed to sync ${FORK} from ${SOURCE}
+
+          Click [here][SYNC] to manually sync [${FORK}][FORK] from [${SOURCE}][SOURCE].
+
+          [FORK]: $(gh repo view "${FORK}" --json 'url' --jq '.url')
+          [SOURCE]: $(gh repo view "${SOURCE}" --json 'url' --jq '.url')
+          [SYNC]: https://github.com/${FORK}/compare/${BRANCH}...$(gh repo view "${SOURCE}" --json 'owner,defaultBranchRef,name' --jq '.owner.login + ":" + .name + ":" + .defaultBranchRef.name')
+          EOF
