@@ -37,6 +37,7 @@ public class norwd
     "Approachable is better than simple",
     "Clear is better than clever",
     "Don't panic",
+    "Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.",
   }
   .OrderBy(_ => new Random().Next())
   .First();
