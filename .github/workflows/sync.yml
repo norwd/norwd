@@ -48,7 +48,7 @@ jobs:
         name: "List Forks That Are Out Of Date"
         run: jq --raw-output "${JQ_QUERY}" forks.json | sh | jq --slurp | tee -a forksThatAreOutOfDate.json
         env:
-          JQ_QUERY: '.[] | "gh api \"/repos/\(.parent.owner.login)/\(.parent.name)\" --jq \"{ parent: { full_name: .full_name, pushed_at: .pushed_at }, source: { full_name: \\\"\(.nameWithOwner)\\\", pushed_at: \\\"\(.pushedAt)\\\" } }\""'
+          JQ_QUERY: '.[] | "gh api \"/repos/\(.parent.owner.login)/\(.parent.name)\" --jq \"{ source: { full_name: .full_name, pushed_at: .pushed_at }, fork: { full_name: \\\"\(.nameWithOwner)\\\", pushed_at: \\\"\(.pushedAt)\\\" } }\""'
 
       - id: json
         name: "Build Output JSON"
