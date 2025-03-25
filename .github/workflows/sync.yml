@@ -49,7 +49,13 @@ jobs:
         run: jq --raw-output "${JQ_QUERY}" forks.json | sh | jq --slurp | tee -a forksThatAreOutOfDate.json
         env:
           JQ_QUERY: |
-            .[] | "gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq 'if .pushed_at > \"\(.pushedAt)\" then { source: { full_name: .full_name, pushed_at: .pushed_at }, fork: { full_name: \"\(.nameWithOwner)\", pushed_at: \"\(.pushedAt)\" } } else empty end'"
+            .[] | "gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq 'if .pushed_at > \"\(.pushedAt)\" then { source: .full_name, fork: \"\(.nameWithOwner)\" } else empty end'"
+
+      - id: json-experimental
+        name: "Build Output JSON (experimental)"
+        run: jq --raw-output --compact-output '.[]' forksThatAreOutOfDate.json | sort --random-sort | jq --slurp --raw-output "${JQ_QUERY}"
+        env:
+          JQ_QUERY: '"json=" + ( [.[:256][]] | tostring )'
 
       - id: json
         name: "Build Output JSON"
