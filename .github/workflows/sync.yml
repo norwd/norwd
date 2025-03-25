@@ -41,7 +41,7 @@ jobs:
         name: "List Forks"
         run: jq --raw-output '.[]' orgs.json | xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | jq --slurp | tee -a forks.json
         env:
-          JQ_PROPS: 'nameWithOwner,parent'
+          JQ_PROPS: 'name,owner,nameWithOwner,parent,createdAt,pushedAt,updatedAt'
           JQ_QUERY: '.[]'
 
       - id: json
