@@ -51,17 +51,11 @@ jobs:
           JQ_QUERY: |
             .[] | "gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq 'if .pushed_at > \"\(.pushedAt)\" then { source: .full_name, fork: \"\(.nameWithOwner)\" } else empty end'"
 
-      - id: json-experimental
-        name: "Build Output JSON (experimental)"
-        run: jq --raw-output --compact-output '.[]' forksThatAreOutOfDate.json | sort --random-sort | jq --slurp --raw-output "${JQ_QUERY}"
-        env:
-          JQ_QUERY: '"json=" + ( [.[:256][]] | tostring )'
-
       - id: json
         name: "Build Output JSON"
-        run: jq --raw-output "${JQ_QUERY}" forks.json | sort --random-sort | jq --slurp --raw-output '"json=" + ( [.[:256][]] | tostring )' | tee -a "${GITHUB_OUTPUT}"
+        run: jq --raw-output --compact-output '.[]' forksThatAreOutOfDate.json | sort --random-sort | jq --slurp --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
-          JQ_QUERY: '.[] | { fork: .nameWithOwner, source: ( .parent.owner.login + "/" + .parent.name ) } | tostring'
+          JQ_QUERY: '"json=" + ( [.[:256][]] | tostring )'
 
   sync:
     name: "Sync Forks"
