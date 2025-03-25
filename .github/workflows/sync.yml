@@ -55,7 +55,7 @@ jobs:
         name: "Build Output JSON"
         run: jq --raw-output --compact-output '.[]' forksThatAreOutOfDate.json | sort --random-sort | jq --slurp --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
-          JQ_QUERY: '"json=" + ( [.[:256][]] | tostring )'
+          JQ_QUERY: '"json=\([.[:256][]])"'
 
   sync:
     name: "Sync Forks"
@@ -83,7 +83,7 @@ jobs:
         run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
           ENDPOINT: '/rate_limit'
-          JQ_QUERY: '"seconds=" + ( [ .resources[] | select(.used != 0) | ( (.used / .limit) * (.reset - ( now | tonumber | floor ) | abs) ) ] + [0] | max | ceil | tostring)'
+          JQ_QUERY: '"seconds=\([ .resources[] | select(.used != 0) | ( (.used / .limit) * (.reset - ( now | tonumber | floor ) | abs) ) ] + [0] | max | ceil)"'
 
       - name: "Wait ${{ steps.delay.outputs.seconds }} Seconds" # wait a bit to prevent rate limiting with so many other jobs going
         run: sleep "${SECONDS}"
@@ -93,9 +93,9 @@ jobs:
       - name: "Pick Branch to Sync To"
         run: |
           {
-            gh api "/repos/${FORK}" --paginate --jq '"\"" + .default_branch + "\""'
-            gh api "/repos/${FORK}/branches" --paginate --jq '"\"" + (.[]|select(.name == "upstream" and .protected).name) + "\""'
-          } | jq --slurp --raw-output '"BRANCH=" + (.[1] // .[0])' | tee -a "${GITHUB_ENV}"
+            gh api "/repos/${FORK}" --paginate --jq '"\"\(.default_branch)\""'
+            gh api "/repos/${FORK}/branches" --paginate --jq '"\"\(.[] | select(.name == "upstream" and .protected).name)\""'
+          } | jq --slurp --raw-output '"BRANCH=\(.[1] // .[0])"' | tee -a "${GITHUB_ENV}"
 
       - id: sync
         name: "Sync ${{ matrix.fork }} from ${{ matrix.source }}"
