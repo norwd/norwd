@@ -49,7 +49,7 @@ jobs:
         run: jq --raw-output "${JQ_QUERY}" forks.json | sh | jq --slurp | tee -a forksThatAreOutOfDate.json
         env:
           JQ_QUERY: |
-            .[] | "gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq '{ source: { full_name: .full_name, pushed_at: .pushed_at }, fork: { full_name: \"\(.nameWithOwner)\", pushed_at: \"\(.pushedAt)\" } }'"
+            .[] | "gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq 'if .pushed_at > \"\(.pushedAt)\" then { source: { full_name: .full_name, pushed_at: .pushed_at }, fork: { full_name: \"\(.nameWithOwner)\", pushed_at: \"\(.pushedAt)\" } } else empty end'"
 
       - id: json
         name: "Build Output JSON"
