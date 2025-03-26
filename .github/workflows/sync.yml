@@ -44,12 +44,16 @@ jobs:
           JQ_PROPS: 'name,owner,nameWithOwner,parent,createdAt,pushedAt,updatedAt'
           JQ_QUERY: '.[]'
 
-      - id: list-forksThatAreOutOfDate
-        name: "List Forks That Are Out Of Date"
-        run: jq --raw-output "${JQ_QUERY}" forks.json | sh | jq --slurp | tee -a forksThatAreOutOfDate.json
+      - id: buildScriptToListForksThatAreOutOfDate
+        name: "Build Script to List Forks That Are Out Of Date"
+        run: jq --raw-output "${JQ_QUERY}" forks.json | tee -a getForksThatAreOutOfDate.sh
         env:
           JQ_QUERY: |
-            .[] | "gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq 'if .pushed_at > \"\(.pushedAt)\" then { source: .full_name, fork: \"\(.nameWithOwner)\" } else empty end'"
+            .[] | "gh api \"/repos/\(.parent.owner.login)/\(.parent.name)/branches/$(gh api \"/repos/\(.parent.owner.login)/\(.parent.name)\" --jq '.default_branch')\" --jq 'if ([ .commit.commit | .author.date, .committer.date | fromdateiso8601 ] | max | todateiso8601) > \"\(.pushedAt)\" then { source: \"\(.parent.owner.login)/\(.parent.name)\", fork: \"\(.nameWithOwner)\" } else empty end'"
+
+      - id: list-forksThatAreOutOfDate
+        name: "List Forks That Are Out Of Date"
+        run: sh getForksThatAreOutOfDate.sh | jq --slurp | tee -a forksThatAreOutOfDate.json
 
       - id: json
         name: "Build Output JSON"
