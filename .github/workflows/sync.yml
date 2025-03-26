@@ -76,6 +76,8 @@ jobs:
       group: sync-forks-${{ join(matrix.*, '-') }}
       cancel-in-progress: false
 
+    if: ${{ needs.list-forks.outputs.json != '[]' }}
+
     strategy:
       fail-fast: false
       max-parallel: 1
