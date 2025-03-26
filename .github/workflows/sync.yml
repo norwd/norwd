@@ -38,18 +38,17 @@ jobs:
           JQ_QUERY: '[ .[].login ] + (if env.REPO_OWNER then [ env.REPO_OWNER ] else [] end)'
 
       - name: "Experimental List Forks and Check for Updates in One Step"
-        run: jq --raw-output '.[]' orgs.json | xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --template "${TEMPLATE}"
+        run: jq --raw-output '.[]' orgs.json | xargs -IREPO_OWNER gh repo list REPO_OWNER --fork --no-archived --limit 1000 --json "${JQ_PROPS}" --template "${TEMPLATE}" | sort --random-sort | tee -a forksThatAreOutOfDate.sh
         env:
           JQ_PROPS: 'name,owner,nameWithOwner,parent,createdAt,pushedAt,updatedAt'
           TEMPLATE: |
-            {
-            {{- "\n" -}}
             {{- range . -}}
             gh api '/repos/{{ .parent.owner.login }}/{{ .parent.name }}' --jq 'if .pushed_at > "{{ .pushedAt }}" then { source: .full_name, fork: "{{ .nameWithOwner }}" } else empty end';
             {{- "\n" -}}
             {{- end -}}
-            {{- "\n" -}}
-            } | sh | jq --slurp --raw-output --compact-output '.[]' | sort --random-sort | jq --slurp --raw-output '"json=\([.[:256][]])"' | tee -a "${GITHUB_OUTPUT}"
+
+      - name: "Experimental List Forks and Check for Updates in One Step"
+        run: sh forksThatAreOutOfDate.sh | jq --slurp --raw-output '"json=\([.[:256][]])"' | tee -a "${GITHUB_OUTPUT}"
 
       - id: list-forks
         name: "List Forks"
