@@ -17,7 +17,7 @@ jobs:
     name: "Dubug json properties"
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ fromJSON('[{}, {}]').length }}"
+      - run: echo "${{ fromJSON('[{}, {}]') }}"
 
   dubug-ubuntu-arm:
     name: "Debug ${{ matrix.runner }}"
