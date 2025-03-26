@@ -49,7 +49,7 @@ jobs:
         run: jq --raw-output "${JQ_QUERY}" forks.json | tee -a getForksThatAreOutOfDate.sh
         env:
           JQ_QUERY: |
-            .[] | "gh api \"/repos/\(.parent.owner.login)/\(.parent.name)/branches/$(gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq '.default_branch')\" --jq 'if ([ .commit.commit | .author.date, .committer.date | fromdateiso8601 ] | max | todateiso8601) > \"\(.pushedAt)\" then { source: \"\(.parent.owner.login)/\(.parent.name)\", fork: \"\(.nameWithOwner)\" } else empty end'"
+            .[] | "gh api \"/repos/\(.parent.owner.login)/\(.parent.name)/branches/$(gh api '/repos/\(.parent.owner.login)/\(.parent.name)' --jq '.default_branch')\" --jq 'if ([ .commit.commit | .author.date, .committer.date | fromdateiso8601 ] | max | todateiso8601) >  (\"\(.pushedAt)\" | fromdateiso8601 + 10 | todateiso8601) then { source: \"\(.parent.owner.login)/\(.parent.name)\", fork: \"\(.nameWithOwner)\" } else empty end'"
 
       - id: list-forksThatAreOutOfDate
         name: "List Forks That Are Out Of Date"
