@@ -16,18 +16,11 @@ jobs:
   debug-regex:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          if [[ 'rc25.3.2' =~ '^rc[1-9][0-9]+?(\.[0-9]+(\.[0-9]+)?)?$' ]]
-          then
-            echo "::debug::Tag name '${TAG_NAME}' looks good!"
-            exit 0
-          else
-            echo "::error title=VALIDATION ERROR::Tag name '${TAG_NAME}' must match regex: '${REG_EXPR}'"
-            exit 1
-          fi
-        env:
+      - env:
           TAG_NAME: 'rc25.3.2'
           REG_EXPR: '^rc[1-9][0-9]+?(\.[0-9]+(\.[0-9]+)?)?$'
+        run: |
+          [[ 'rc25.3.2' =~ '^rc[1-9][0-9]+?(\.[0-9]+(\.[0-9]+)?)?$' ]]
 
   debug-json-properties:
     name: "Dubug json properties"
