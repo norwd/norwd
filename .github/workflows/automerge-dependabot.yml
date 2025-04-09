@@ -46,4 +46,4 @@ jobs:
           JQ_QUERY: '.[] | select(.autoMergeRequest == null and .mergeable == "MERGEABLE") | .url'
 
       - name: "Enable Automerge on Dependabot PRs"
-        run: cat pr_urls.txt | xargs -IPR_URL gh pr merge --auto --merge PR_URL
+        run: cat pr_urls.txt | xargs --verbose -IPR_URL gh pr merge --auto --merge PR_URL
