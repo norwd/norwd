@@ -17,18 +17,15 @@ defaults:
   run:
     shell: bash
 
+env:
+  GH_TOKEN: '${{ secrets.AUTOMERGE_DEPENDABOT_NORWD }}'
+  REPO_OWNER: ${{ github.repository_owner }}
+
 jobs:
   enable-automerge-on-dependabot-prs:
     name: "Enable Automerge on Dependabot PRs"
     runs-on: ubuntu-latest
-
-    env:
-      GH_TOKEN: '${{ secrets.AUTOMERGE_DEPENDABOT_NORWD }}'
-
     steps:
-      - name: "Install moreutils"
-        run: sudo apt-get install -y moreutils
-
       - name: "List Orgs"
         run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a orgs.txt
         env:
