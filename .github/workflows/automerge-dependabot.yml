@@ -1,0 +1,52 @@
+---
+
+name: "Enable Automerge on Dependabot PRs"
+run-name: "Enable Automerge on Dependabot PRs on ${{ github.event_name }}"
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "15 15 * * *" # roughly 3:15 am NZST
+
+  push:
+    branches: [main]
+    paths: ['.github/workflows/automerge-dependabot.yml']
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  enable-automerge-on-dependabot-prs:
+    name: "Enable Automerge on Dependabot PRs"
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: '${{ secrets.AUTOMERGE_DEPENDABOT_NORWD }}'
+
+    steps:
+      - name: "Install moreutils"
+        run: sudo apt-get install -y moreutils
+
+      - name: "List Orgs"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a orgs.txt
+        env:
+          ENDPOINT: '/users/${{ github.repository_owner }}/orgs' # use 'user/orgs' (yes, singluar 'user') to include orgs with private membership
+          JQ_QUERY: '( [ .[].login ] + (if env.REPO_OWNER then [ env.REPO_OWNER ] else [] end) ) | .[]'
+
+      - name: "List Repos"
+        run: cat orgs.txt | xargs -IREPO_OWNER gh repo list REPO_OWNER --source --no-archived --limit 1000 --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a repos.txt
+        env:
+          JQ_PROPS: 'nameWithOwner'
+          JQ_QUERY: '.[].nameWithOwner'
+
+      - name: "List Dependabot PR URLs"
+        run: cat repos.txt | xargs -IREPO gh --repo REPO pr list --limit 1000 --author "${PR_LOGIN}" --json "${JQ_PROPS}" --jq "${JQ_QUERY}" | tee -a pr_urls.txt
+        env:
+          PR_LOGIN: 'dependabot[bot]'
+          JQ_PROPS: 'autoMergeRequest,mergeStateStatus,mergeable,url'
+          JQ_QUERY: '.[] | select(.autoMergeRequest == null and .mergeable == "MERGEABLE") | .url'
+
+      - name: "Enable Automerge on Dependabot PRs"
+        run: cat pr_urls.txt | xargs -IPR_URL gh pr merge --auto --merge PR_URL
