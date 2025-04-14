@@ -13,17 +13,6 @@ on:
 
 jobs:
 
-  debug-lazy-env-vars:
-    name: "Debug Lazy Env Vars"
-    runs-on: ubuntu-latest
-    steps:
-      - run: printenv
-      - id: set-foo
-        run: echo "foo=BAR" | tee -a "${GITHUB_OUTPUT}"
-      - run: printenv
-        env:
-          FOO: ${{ steps.set-foo.outputs.foo }}
-
   debug-json-properties:
     name: "Dubug json properties"
     runs-on: ubuntu-latest
