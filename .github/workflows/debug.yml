@@ -63,12 +63,14 @@ jobs:
             ${{
               toJSON(
                 fromJSON(
-                  format(
-                    '{{ {0} }}',
-                    join([
-                      format('"event_type": {0}', toJSON(github.event_name)),
-                      format('"client_payload": {0}', toJSON(github.event))
-                    ], ', ')
+                  format('
+            {{
+              "event_type": {0},
+              "client_payload": {1}
+            }}
+            ',
+                    toJSON(github.event_name),
+                    toJSON(github.event)
                   )
                 )
               )
