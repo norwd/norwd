@@ -68,8 +68,8 @@ jobs:
               "foo": {0},
               "bar": {1}
             }}'
-                    , toJSON(github.event_type) # foo
-                    , toJSON(github.event) # bar
+                    , toJSON(github.event_type)
+                    , toJSON(github.event)
                   )
                 )
               )
