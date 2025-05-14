@@ -22,7 +22,11 @@ jobs:
     name: "Dubug json properties"
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ fromJSON('[{}, {}]') }}"
+      - run: echo "${JSON}"
+        env:
+          JSON: |
+            ${{ toJSON('
+            ') }}
 
   debug-ubuntu-arm:
     name: "Debug ${{ matrix.runner }}"
