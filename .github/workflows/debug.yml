@@ -13,6 +13,14 @@ on:
 
 jobs:
 
+  debug-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${JSON}"
+        env:
+          JSON: ${{ toJSON(github.event) }}
+
   debug-ubuntu-arm:
     name: "Debug ${{ matrix.runner }}"
     runs-on: ${{ matrix.runner }}
