@@ -13,6 +13,17 @@ on:
 
 jobs:
 
+  debug-matrix-conditional:
+    if: matrix.shouldRun
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shouldRun:
+          - true
+          - false
+    steps:
+      - run: echo "${{ matrix.shouldRun }}"
+
   debug-pr:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
