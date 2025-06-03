@@ -22,7 +22,7 @@ jobs:
           - false
     steps:
       - run: echo "${{ matrix.shouldRun }}"
-        if: ${{ matrix.shouldRun == 'true' }}
+        if: ${{ matrix.shouldRun }}
 
   debug-pr:
     if: github.event_name == 'pull_request'
