@@ -14,7 +14,7 @@ on:
 jobs:
 
   debug-matrix-conditional:
-    if: matrix.shouldRun
+    if: ${{ matrix.shouldRun == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
