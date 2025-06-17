@@ -38,6 +38,7 @@ public class norwd
     "Clear is better than clever",
     "Don't panic",
     "Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.",
+    "A unit test is most useful when it fails 🍂 A unit test that passes, says nothing",
   }
   .OrderBy(_ => new Random().Next())
   .First();
