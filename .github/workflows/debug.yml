@@ -13,6 +13,23 @@ on:
 
 jobs:
 
+  debug-matrix-object-dereference:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        key:
+          - "a"
+          - "b"
+          - "c"
+    steps:
+      - id: a
+        run: echo "key=a value" | tee -a "${GITHUB_OUTPUT}"
+      - id: b
+        run: echo "key=b value" | tee -a "${GITHUB_OUTPUT}"
+      - id: c
+        run: echo "key=c value" | tee -a "${GITHUB_OUTPUT}"
+      - run: echo "${{ steps[matrix.key].outputs.key }}"
+
   debug-matrix-conditional:
     runs-on: ubuntu-latest
     strategy:
