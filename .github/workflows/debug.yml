@@ -34,7 +34,7 @@ jobs:
           tee -a << EOF | tee -a "${GITHUB_OUTPUT}"
           key_a=a value 2
           key_b=b value 2
-          key_b=b value 2
+          key_c=c value 2
           EOF
       - run: echo "${{ steps.values.outputs[format('key_{0}', matrix.key)] }}"
 
