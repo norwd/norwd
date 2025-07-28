@@ -31,16 +31,7 @@ public class norwd
   /// </remarks>
   public string Fortune => new[]
   {
-    "Нет войне!",
-    "A language that doesn't affect the way you think about, is not worth knowing",
-    "Anything added dilutes everything else",
-    "Approachable is better than simple",
-    "Clear is better than clever",
-    "Don't panic",
-    "Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them.",
-    "A unit test is most useful when it fails",
-    "A unit test that passes, says nothing",
-    "[muffled sounds of gorilla violence]",
+
   }
   .OrderBy(_ => new Random().Next())
   .First();
