@@ -13,6 +13,12 @@ on:
 
 jobs:
 
+  debug-tor:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt install -y tor
+      - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org
+
   debug-matrix-object-dereference:
     runs-on: ubuntu-latest
     strategy:
