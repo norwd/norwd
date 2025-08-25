@@ -17,8 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt install -y tor
-      - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org
-      - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
+      - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
 
   debug-matrix-object-dereference:
     runs-on: ubuntu-latest
