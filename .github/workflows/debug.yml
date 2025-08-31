@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-go@v5
-      - run: go get -u -v -x github.com/ipsn/go-libtor
-      - run: go get -u github.com/cretz/bine/tor
+      - run: go install github.com/ipsn/go-libtor
+      - run: go install github.com/cretz/bine/tor
       - run: |
           tee -a main.go << EOF
           package main
