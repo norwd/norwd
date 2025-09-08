@@ -21,15 +21,3 @@ jobs:
     steps:
       - run: sudo apt install -y tor
       - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
-
-  debug-artifacts:
-    runs-on: ubuntu-latest
-    steps:
-      - run: date +%s > test.txt
-      - id: upload-artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: test.txt
-      - run: gh api "${ENDPOINT}" | unzip -
-        env:
-          ENDPOINT: /repos/${{ github.repository }}/actions/artifacts/${{ steps.upload-artifact.outputs.artifact-id }}/zip
