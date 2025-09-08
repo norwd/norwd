@@ -30,6 +30,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: test.txt
-      - run: gh api "${ENDPOINT}" | unzip
+      - run: gh api "${ENDPOINT}" | unzip -
         env:
           ENDPOINT: /repos/${{ github.repository }}/actions/artifacts/${{ steps.upload-artifact.outputs.artifact-id }}/zip
