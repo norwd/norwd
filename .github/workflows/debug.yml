@@ -12,7 +12,7 @@ on:
     paths: ['.github/workflows/debug.yml']
 
 env:
-  GH_TOKEN: ${{ secret.token }}
+  GH_TOKEN: ${{ secrets.token }}
 
 jobs:
 
