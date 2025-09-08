@@ -21,10 +21,3 @@ jobs:
     steps:
       - run: sudo apt install -y tor
       - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
-
-  debug-artifacts:
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - run: date +%s | gh api '/repos/${{ github.repository }}/git/blobs' --field 'encoding=utf-8' --field "content=@-"
