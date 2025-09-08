@@ -11,6 +11,9 @@ on:
   push:
     paths: ['.github/workflows/debug.yml']
 
+env:
+  GH_TOKEN: ${{ secret.token }}
+
 jobs:
 
   debug-tor:
