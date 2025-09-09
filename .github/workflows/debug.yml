@@ -20,5 +20,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt install -y tor
-      - run: curl --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
-      - run: curl --proxy socks5h://localhost:9050 https://webhook.site/be1e958e-ed8f-47fa-bc10-0a57b67a2750
+      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
