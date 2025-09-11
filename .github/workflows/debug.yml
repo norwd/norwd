@@ -21,3 +21,14 @@ jobs:
     steps:
       - run: sudo apt install -y tor
       - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
+
+  debug-tor-ytdlp:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir -p ~/.local/bin
+      - run: echo "~/.local/bin" >> "$GITHUB_PATH"
+      - run: curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp
+      - run: chmod a+rx ~/.local/bin/yt-dlp
+      - run: sudo apt install -y tor
+      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
+      - run: yt-dlp --proxy socks5h://localhost:9050 https://www.youtube.com/watch?v=E9L0c_OhPZo
