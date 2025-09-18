@@ -25,4 +25,4 @@ jobs:
   debug-check-run-id:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.check_run_id }}
+      - run: echo ${{ job.check_run_id }}
