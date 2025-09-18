@@ -21,3 +21,8 @@ jobs:
     steps:
       - run: sudo apt install -y tor
       - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
+
+  debug-check-run-id:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.check_run_id }}
