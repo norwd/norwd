@@ -23,7 +23,9 @@ jobs:
         env:
           DEBUG: |
             ${{
-              'aawefwqae'
+              fromJSON('
+                "aawefwqae"
+              ')
             }}
 
   debug-tor:
