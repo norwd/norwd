@@ -19,7 +19,7 @@ jobs:
   debug-join:
     runs-on: ubuntu-latest
     steps:
-      - run: ${{ join(['asdf','wfe'], '-') }}
+      - run: ${{ join(fromJSON('["asdf","wfe"]'), '-') }}
 
   debug-tor:
     runs-on: ubuntu-latest
