@@ -24,7 +24,7 @@ jobs:
           DEBUG: |
             ${{
               fromJSON('
-                // COMMENT
+                /* COMMENT */
                 "aawefwqae"
               ')
             }}
