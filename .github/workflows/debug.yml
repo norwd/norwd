@@ -16,11 +16,6 @@ env:
 
 jobs:
 
-  debug-join:
-    runs-on: ubuntu-latest
-    steps:
-      - run: ${{ join(fromJSON('["asdf","wfe"]'), '-') }}
-
   debug-tor:
     runs-on: ubuntu-latest
     steps:
