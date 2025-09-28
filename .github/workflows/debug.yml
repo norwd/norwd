@@ -16,19 +16,6 @@ env:
 
 jobs:
 
-  debug-expression-comment:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${DEBUG}"
-        env:
-          DEBUG: |
-            ${{
-              fromJSON('
-                # COMMENT
-                "aawefwqae"
-              ')
-            }}
-
   debug-tor:
     runs-on: ubuntu-latest
     steps:
