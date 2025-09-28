@@ -16,26 +16,6 @@ env:
 
 jobs:
 
-  debug-join:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${DEBUG}"
-        env:
-          DEBUG: |
-            ${{
-              join (
-                fromJSON (
-                  '
-                    [
-                      "awefew",
-                      "erttrhe",
-                    ]
-                  '
-                ),
-                ' / '
-              )
-            }}
-
   debug-tor:
     runs-on: ubuntu-latest
     steps:
