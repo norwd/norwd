@@ -16,6 +16,12 @@ env:
 
 jobs:
 
+  debug:
+    if: runner.debug
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo waf wafl wef
+    
   debug-tor:
     runs-on: ubuntu-latest
     steps:
