@@ -15,12 +15,6 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-      - if: runner.debug
-        run: echo waf wafl wef
     
   debug-tor:
     runs-on: ubuntu-latest
