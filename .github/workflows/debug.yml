@@ -20,10 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt install -y tor
-      - run: curl --silent https://ifconfig.me/all.json
-      - run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json
-      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
+      - run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
+      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
       - run: sudo service tor restart
-      - run: curl --silent https://ifconfig.me/all.json
-      - run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json
-      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip
+      - run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
+      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
