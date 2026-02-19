@@ -30,7 +30,7 @@ jobs:
           JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
       - id: assert
-        name: "Assert"
+        name: "Assert That Tor Is Not Connected"
         run: test "${IS_TOR}" = "false"
         env:
           IS_TOR: ${{ steps.check.outputs.IsTor }}
@@ -52,7 +52,7 @@ jobs:
           JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
       - id: assert
-        name: "Assert"
+        name: "Assert That Tor Is Connected"
         run: test "${IS_TOR}" = "true"
         env:
           IS_TOR: ${{ steps.check.outputs.IsTor }}
@@ -85,19 +85,19 @@ jobs:
           JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
       - id: assert-was-connected-before
-        name: "Assert"
+        name: "Assert That Tor Was Connected Before"
         run: test "${IS_TOR}" = "true"
         env:
           IS_TOR: ${{ steps.check-before.outputs.IsTor }}
 
       - id: assert-is-connected-after
-        name: "Assert"
+        name: "Assert That Tor Is Connected After"
         run: test "${IS_TOR}" = "true"
         env:
           IS_TOR: ${{ steps.check-after.outputs.IsTor }}
 
       - id: assert-ip-has-changed
-        name: "Assert"
+        name: "Assert That IP Has Changed"
         run: test "${IP_BEFORE}" != "${IP_AFTER}"
         env:
           IP_BEFORE: ${{ steps.check-before.outputs.IP }}
@@ -124,7 +124,7 @@ jobs:
 
       - id: dump-config
         name: "Dump Config"
-        run: tor --dump-config
+        run: tor --dump-config short
 
   test-that-tor-can-use-bridges:
     runs-on: ubuntu-latest
@@ -150,7 +150,7 @@ jobs:
           JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
       - id: assert
-        name: "Assert"
+        name: "Assert That Tor Is Connected"
         run: test "${IS_TOR}" = "true"
         env:
           IS_TOR: ${{ steps.check.outputs.IsTor }}
