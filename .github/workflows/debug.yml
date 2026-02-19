@@ -114,7 +114,7 @@ jobs:
       - id: configure
         name: "Configure"
         run: |
-          tee -a "~/.torrc" << EOF
+          sudo tee -a /etc/tor/torrc << EOF
           GuardLifetime 123 days
           EOF
 
@@ -137,7 +137,7 @@ jobs:
       - id: configure
         name: "Configure"
         run: |
-          tee -a "~/.torrc" << EOF
+          sudo tee -a /etc/tor/torrc << EOF
           UseBridges 1
           EOF
 
