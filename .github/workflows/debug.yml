@@ -45,7 +45,7 @@ jobs:
 
       - id: wait-till-connected
         name: "Wait"
-        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sudo service tor restart || systemctl status tor.service ; done
+        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sudo service tor restart || journalctl -xeu tor.service ; done
         env:
           TORPROXY: socks5h://localhost:9050
           ENDPOINT: https://check.torproject.org/api/ip
@@ -170,7 +170,7 @@ jobs:
 
       - id: wait-till-connected
         name: "Wait"
-        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sudo service tor restart || systemctl status tor.service ; done
+        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sudo service tor restart || journalctl -xeu tor.service ; done
         env:
           TORPROXY: socks5h://localhost:9050
           ENDPOINT: https://check.torproject.org/api/ip
