@@ -137,7 +137,7 @@ jobs:
       - id: configure
         name: "Configure"
         run: |
-          tee "${HOME}/.torrc" << EOF
+          tee "~/.torrc" << EOF
           UseBridges 1
           EOF
 
