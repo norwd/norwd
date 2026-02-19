@@ -17,25 +17,140 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-    
-  debug-tor:
+
+  test-that-tor-is-not-default:
     runs-on: ubuntu-latest
     steps:
 
-      - name: "Install"
+      - id: check
+        name: "Check"
+        run: curl --silent "${ENDPOINT}" | jq --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        env:
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
+
+      - id: assert
+        name: "Assert"
+        run: test "${IS_TOR}" = "false"
+        env:
+          IS_TOR: ${{ steps.check.outputs.IsTor }}
+
+  test-that-tor-can-connect:
+    runs-on: ubuntu-latest
+    steps:
+
+      - id: install
+        name: "Install"
         run: sudo apt install -y tor
 
-      - name: "Check https://ifconfig.me"
-        run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
+      - id: check
+        name: "Check"
+        run: curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        env:
+          TORPROXY: socks5h://localhost:9050
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
-      - name: "Check https://check.torproject.org"
-        run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
+      - id: assert
+        name: "Assert"
+        run: test "${IS_TOR}" = "true"
+        env:
+          IS_TOR: ${{ steps.check.outputs.IsTor }}
 
-      - name: "Restart Tor"
+  test-that-tor-can-reconnect:
+    runs-on: ubuntu-latest
+    steps:
+
+      - id: install
+        name: "Install"
+        run: sudo apt install -y tor
+
+      - id: check-before
+        name: "Check"
+        run: curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        env:
+          TORPROXY: socks5h://localhost:9050
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
+
+      - name: "Restart"
         run: sudo service tor restart
 
-      - name: "Check https://ifconfig.me"
-        run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
+      - id: check-after
+        name: "Check"
+        run: curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        env:
+          TORPROXY: socks5h://localhost:9050
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
-      - name: "Check https://check.torproject.org"
-        run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
+      - id: assert-was-connected-before
+        name: "Assert"
+        run: test "${IS_TOR}" = "true"
+        env:
+          IS_TOR: ${{ steps.check-before.outputs.IsTor }}
+
+      - id: assert-is-connected-after
+        name: "Assert"
+        run: test "${IS_TOR}" = "true"
+        env:
+          IS_TOR: ${{ steps.check-after.outputs.IsTor }}
+
+      - id: assert-ip-has-changed
+        name: "Assert"
+        run: test "${IP_BEFORE}" != "${IP_AFTER}"
+        env:
+          IP_BEFORE: ${{ steps.check-before.outputs.IP }}
+          IP_AFTER: ${{ steps.check-before.outputs.IP }}
+
+  test-that-tor-respects-torrc:
+    runs-on: ubuntu-latest
+    steps:
+
+      - id: install
+        name: "Install"
+        run: sudo apt install -y tor
+
+      - id: configure
+        name: "Configure"
+        run: |
+          tee "${HOME}/.torrc" << EOF
+          GuardLifetime 123 days
+          EOF
+
+      - id: verify-config
+        name: "Verify Config"
+        run: tor --verify-config
+
+      - id: dump-config
+        name: "Dump Config"
+        run: tor --dump-config
+
+  test-that-tor-can-use-bridges:
+    runs-on: ubuntu-latest
+    steps:
+
+      - id: install
+        name: "Install"
+        run: sudo apt install -y tor
+
+      - id: configure
+        name: "Configure"
+        run: |
+          tee "${HOME}/.torrc" << EOF
+          UseBridges 1
+          EOF
+
+      - id: check
+        name: "Check"
+        run: curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        env:
+          TORPROXY: socks5h://localhost:9050
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
+
+      - id: assert
+        name: "Assert"
+        run: test "${IS_TOR}" = "true"
+        env:
+          IS_TOR: ${{ steps.check.outputs.IsTor }}
