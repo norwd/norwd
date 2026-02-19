@@ -107,6 +107,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - id: arrange
+        name: "Arrange"
+        run: echo "GuardLifetimeSeconds=${RANDOM}" | tee - "${GITHUB_OUTPUT}"
+
       - id: install
         name: "Install"
         run: sudo apt install -y tor
@@ -115,7 +119,7 @@ jobs:
         name: "Configure"
         run: |
           sudo tee -a /etc/tor/torrc << EOF
-          GuardLifetime 123 days
+          GuardLifetime ${{ steps.arrange.outputs.GuardLifetimeSeconds }}
           EOF
 
       - name: "Restart"
@@ -128,6 +132,12 @@ jobs:
       - id: dump-config
         name: "Dump Config"
         run: tor --dump-config short
+
+      - id: assert-config-is-updated
+        name: "Assert That Config Is Updated"
+        run: test "$(tor --dump-config short | awk '/GuardLifetime/ { print $2 }')" != "${GUARD_LIFE_TIME_SECONDS}"
+        env:
+          GUARD_LIFE_TIME_SECONDS: ${{ steps.arrange.outputs.GuardLifetimeSeconds }}
 
   test-that-tor-can-use-bridges:
     runs-on: ubuntu-latest
