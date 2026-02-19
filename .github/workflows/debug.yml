@@ -124,7 +124,7 @@ jobs:
 
       - id: dump-config
         name: "Dump Config"
-        run: tor --dump-config long
+        run: tor --dump-config full
 
   test-that-tor-can-use-bridges:
     runs-on: ubuntu-latest
