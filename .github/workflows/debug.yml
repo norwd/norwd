@@ -101,7 +101,7 @@ jobs:
         run: test "${IP_BEFORE}" != "${IP_AFTER}"
         env:
           IP_BEFORE: ${{ steps.check-before.outputs.IP }}
-          IP_AFTER: ${{ steps.check-before.outputs.IP }}
+          IP_AFTER: ${{ steps.check-after.outputs.IP }}
 
   test-that-tor-respects-torrc:
     runs-on: ubuntu-latest
