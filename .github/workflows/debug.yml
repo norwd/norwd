@@ -10,6 +10,8 @@ on:
   pull_request:
   push:
     paths: ['.github/workflows/debug.yml']
+  schedule:
+    - cron: '0 0 * * 0'
 
 env:
   GH_TOKEN: ${{ github.token }}
