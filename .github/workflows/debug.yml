@@ -21,9 +21,21 @@ jobs:
   debug-tor:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt install -y tor
-      - run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
-      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
-      - run: sudo service tor restart
-      - run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
-      - run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
+
+      - name: "Install"
+        run: sudo apt install -y tor
+
+      - name: "Check https://ifconfig.me"
+        run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
+
+      - name: "Check https://check.torproject.org"
+        run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
+
+      - name: "Restart Tor"
+        run: sudo service tor restart
+
+      - name: "Check https://ifconfig.me"
+        run: curl --silent --proxy socks5h://localhost:9050 https://ifconfig.me/all.json | jq
+
+      - name: "Check https://check.torproject.org"
+        run: curl --silent --proxy socks5h://localhost:9050 https://check.torproject.org/api/ip | jq
