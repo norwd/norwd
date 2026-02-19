@@ -45,7 +45,7 @@ jobs:
 
       - id: wait-till-connected
         name: "Wait"
-        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sleep 15 ; done
+        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sleep 1 ; done
         env:
           TORPROXY: socks5h://localhost:9050
           ENDPOINT: https://check.torproject.org/api/ip
