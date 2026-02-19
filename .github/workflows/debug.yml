@@ -81,7 +81,8 @@ jobs:
           ENDPOINT: https://check.torproject.org/api/ip
           JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
-      - name: "Restart"
+      - id: restart
+        name: "Restart"
         run: sudo service tor restart && sleep 15
 
       - id: check-after
@@ -130,7 +131,8 @@ jobs:
           GuardLifetime ${{ steps.arrange.outputs.GuardLifetimeSeconds }}
           EOF
 
-      - name: "Restart"
+      - id: restart
+        name: "Restart"
         run: sudo service tor restart && sleep 15
 
       - id: verify-config
@@ -162,8 +164,17 @@ jobs:
           UseBridges 1
           EOF
 
-      - name: "Restart"
-        run: sudo service tor restart && sleep 15
+      - id: restart
+        name: "Restart"
+        run: sudo service tor restart
+
+      - id: wait-till-connected
+        name: "Wait"
+        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sleep 1 ; done
+        env:
+          TORPROXY: socks5h://localhost:9050
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: '.IsTor'
 
       - id: check
         name: "Check"
