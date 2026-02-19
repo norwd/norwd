@@ -43,6 +43,14 @@ jobs:
         name: "Install"
         run: sudo apt install -y tor
 
+      - id: wait-till-connected
+        name: "Wait"
+        run: until curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --exit-status "${JQ_QUERY}" ; do sleep 15 ; done
+        env:
+          TORPROXY: socks5h://localhost:9050
+          ENDPOINT: https://check.torproject.org/api/ip
+          JQ_QUERY: '.IsTor'
+
       - id: check
         name: "Check"
         run: curl --silent --proxy "${TORPROXY}" "${ENDPOINT}" | jq --raw-output "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
