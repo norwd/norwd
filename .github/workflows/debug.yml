@@ -74,7 +74,7 @@ jobs:
           JQ_QUERY: . | to_entries[] | select(.value != "") | .key + "=" + (.value | tostring)
 
       - name: "Restart"
-        run: sudo service tor restart
+        run: sudo service tor restart && sleep 15
 
       - id: check-after
         name: "Check"
@@ -123,7 +123,7 @@ jobs:
           EOF
 
       - name: "Restart"
-        run: sudo service tor restart
+        run: sudo service tor restart && sleep 15
 
       - id: verify-config
         name: "Verify Config"
@@ -135,7 +135,7 @@ jobs:
 
       - id: assert-config-is-updated
         name: "Assert That Config Is Updated"
-        run: test "$(tor --dump-config short | awk '/GuardLifetime/ { print $2 }')" != "${GUARD_LIFE_TIME_SECONDS}"
+        run: test "$(tor --dump-config short | awk '/GuardLifetime:/ { print $2 }')" != "${GUARD_LIFE_TIME_SECONDS}"
         env:
           GUARD_LIFE_TIME_SECONDS: ${{ steps.arrange.outputs.GuardLifetimeSeconds }}
 
@@ -155,7 +155,7 @@ jobs:
           EOF
 
       - name: "Restart"
-        run: sudo service tor restart
+        run: sudo service tor restart && sleep 15
 
       - id: check
         name: "Check"
