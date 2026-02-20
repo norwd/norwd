@@ -161,7 +161,7 @@ jobs:
         name: "Configure"
         run: |
           sudo tee -a /etc/tor/torrc << EOF
-          UseBridges 1
+          ${{ secrets.BRIDGES_TORRC }}
           EOF
 
       - id: restart
