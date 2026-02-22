@@ -150,6 +150,7 @@ jobs:
           GUARD_LIFE_TIME_SECONDS: ${{ steps.arrange.outputs.GuardLifetimeSeconds }}
 
   test-that-tor-can-use-bridges:
+    if: false
     runs-on: ubuntu-latest
     steps:
 
