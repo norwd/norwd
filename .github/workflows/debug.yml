@@ -18,20 +18,7 @@ env:
 
 jobs:
 
-  debug-matrix-includes:
+  debug:
     runs-on: ubuntu-slim
-    strategy:
-      matrix:
-        foo: [a,b,c]
-        bar: [x,y,z]
-        include:
-          - baz: 1
-            foo: d
-          - baz: 2
-            foo: e
-          - baz: 3
-            foo: f
     steps:
-      - run: echo "${JSON}" | jq '.'
-        env:
-          JSON: ${{ toJson(matrix) }}
+      - run: true
