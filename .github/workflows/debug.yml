@@ -29,4 +29,6 @@ jobs:
           - baz: 2
           - baz: 3
     steps:
-      - run: echo "${{ toJson(matrix) }}" | jq '.'
+      - run: echo "${JSON}" | jq '.'
+        env:
+          JSON: ${{ toJson(matrix) }}
