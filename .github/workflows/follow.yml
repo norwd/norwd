@@ -24,8 +24,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: "Follow all members of my repos"
-        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | sh | sort --unique | xargs -IUSERNAME gh api --method PUT /user/following/USERNAME
+      - name: "List orgs"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a orgs.txt
         env:
-          ENDPOINT: /user/orgs
-          JQ_QUERY: .[] | "gh api \(.url)/members --jq '.[].login'"
+          ENDPOINT: user/orgs
+          JQ_QUERY: .[].url
+
+      - name: "List members"
+        run: xargs -IORG_BASE_URL gh api "${ENDPOINT}" --jq "${JQ_QUERY}" < orgs.txt | tee -a users.txt
+        env:
+          ENDPOINT: ORG_BASE_URL/members
+          JQ_QUERY: .[].login
+
+      - name: "Follow all members of my repos"
+        run: sort --unique < users.txt | xargs -IUSERNAME gh api --method PUT "${ENDPOINT}"
+        env:
+          ENDPOINT: /user/following/USERNAME
