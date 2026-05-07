@@ -1,0 +1,31 @@
+---
+
+name: "Follow Users"
+run-name: "Following Users"
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch:
+  push: {paths: [.github/workflows/follow.yml]}
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  GH_TOKEN: ${{ secrets.FOLLOW_USERS_NORWD }}
+  REPO_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  follow-all-members-of-my-repos:
+    name: "Follow all members of my repos"
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Follow all members of my repos"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | sh | sort --unique | xargs -IUSERNAME gh api --method PUT /user/following/USERNAME
+        env:
+          ENDPOINT: /user/orgs
+          JQ_QUERY: .[] | "gh api \(.url)/members --jq '.[].login'"
