@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    paths: ['.github/workflows/debug.yml']
+    paths: ['.forgejo/workflows/debug.yml']
   schedule:
     - cron: '0 0 * * 0'
 
@@ -19,6 +19,6 @@ env:
 jobs:
 
   debug:
-    runs-on: ubuntu-slim
+    runs-on: codeberg-tiny
     steps:
       - run: true
