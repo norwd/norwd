@@ -18,6 +18,7 @@ public class norwd
   /// </summary>
   public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
   {
+    ["CodeBerg"]      = new Uri("https://https://codeberg.org/norwd"),
     ["GitHub"]        = new Uri("https://github.com/norwd"),
     ["JiraStopWatch"] = new Uri("https://jirastopwatch.com"),
     ["ThisTimeStamp"] = new Uri("https://thistimestamp.com"),
@@ -68,5 +69,5 @@ I do not consent to GitHub's use of any of my projects' code in Copilot.
 
 All of my code is 100% Human-Made!
 
-<img src="/../../../../norwd/human/blob/main/docs/automatic-logo.svg" height="50" />
+<img src="https://codeberg.org/norwd/human/raw/branch/main/docs/automatic-logo.svg" height="50" />
 
