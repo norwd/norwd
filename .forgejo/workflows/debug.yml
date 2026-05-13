@@ -14,11 +14,13 @@ on:
     - cron: '0 0 * * 0'
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ forgejo.token }}
 
 jobs:
 
   debug:
     runs-on: codeberg-tiny
     steps:
-      - run: true
+      - run: echo "${JSON}"
+        env:
+          JSON: ${{ toJSON(forgejo) }}
