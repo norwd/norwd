@@ -4,6 +4,7 @@
 
 These are the default `.github/**.md` files for my public repos.
 
+*Note:* This repo is a readonly mirror of https://codeberg.org/norwd/.profile so any changes should be made there.
+
 <!-- note, the below svg link only renders on github -->
-<!-- markdownlint-disable-next-line MD013 MD033 -->
 <img src="/../../../../norwd/human/blob/main/docs/automatic-logo.svg" height="50" />
