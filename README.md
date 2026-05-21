@@ -1,7 +1,3 @@
-<!-- markdownlint-disable -->
-
-<!-- WARNING! ANY CHANGES MADE HERE WILL BE LOST -->
-
 ```csharp
 /// <summary>
 /// Hi, I'm <see cref="norwd" />.
