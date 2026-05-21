@@ -34,10 +34,27 @@ env:
   FORTUNE: ${{ inputs.fortune }}
 
 jobs:
+
+  test:
+    name: "Set bio"
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Extract Fortunes"
+        run: |
+          awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2 | cat - << EOF | dotnet run -
+          public enum Pronoun {He,Him,His} // prevent syntax errors
+          var me = new norwd();
+          Console.WriteLine(me.Fortune);
+
   set-bio:
     name: "Set bio"
     runs-on: ubuntu-latest
     steps:
+
       - name: "Checkout"
         uses: actions/checkout@v3
 
