@@ -34,16 +34,16 @@ env:
   FORTUNE: ${{ inputs.fortune }}
 
 jobs:
-
-  test:
-    name: "Test getting bio from Markdown"
+  set-bio:
+    name: "Set bio"
     runs-on: ubuntu-latest
     steps:
 
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Extract Fortunes"
+      - name: "Select Random Fortune"
+        if: inputs.fortune == ''
         run: |
           dotnet run - << EOF
           var me = new norwd();
@@ -57,27 +57,6 @@ jobs:
           Console.WriteLine(\$"{eof_marker}");
           public enum Pronoun {He,Him,His} // prevent syntax errors
           $(awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2)
-          EOF
-
-      - run: echo "${FORTUNE}"
-
-  set-bio:
-    name: "Set bio"
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: "Checkout"
-        uses: actions/checkout@v3
-
-      - name: "Select Random Fortune"
-        if: inputs.fortune == ''
-        run: |
-          EOF_MARKER="$(head -c 8 /dev/random | hexdump -v -e '1/1 "%.2X"')"
-          echo "::add-mask::${EOF_MARKER}"
-          tee -a "${GITHUB_ENV}" << EOF
-          FORTUNE<<${EOF_MARKER}
-          $(jq -r '.[]' < fortunes.json | sort --random-sort | head -1)
-          ${EOF_MARKER}
           EOF
 
       - name: "Install gh-user"
