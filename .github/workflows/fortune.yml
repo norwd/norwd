@@ -36,7 +36,7 @@ env:
 jobs:
 
   test:
-    name: "Set bio"
+    name: "Test getting bio from Markdown"
     runs-on: ubuntu-latest
     steps:
 
@@ -47,6 +47,10 @@ jobs:
         run: |
           dotnet run - << EOF
           var me = new norwd();
+          using var filestream = new FileStream("${GITHUB_ENV}", FileMode.Open);
+          using var streamwriter = new StreamWriter(filestream);
+          streamwriter.AutoFlush = true;
+          Console.SetOut(streamwriter);
           Console.WriteLine(me.Fortune);
           public enum Pronoun {He,Him,His} // prevent syntax errors
           $(awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2)
