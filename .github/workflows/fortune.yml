@@ -45,10 +45,12 @@ jobs:
 
       - name: "Extract Fortunes"
         run: |
-          awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2 | cat - << EOF | dotnet run -
-          public enum Pronoun {He,Him,His} // prevent syntax errors
+          dotnet run - << EOF
           var me = new norwd();
           Console.WriteLine(me.Fortune);
+          public enum Pronoun {He,Him,His} // prevent syntax errors
+          $(awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2)
+          EOF
 
   set-bio:
     name: "Set bio"
