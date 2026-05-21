@@ -59,6 +59,8 @@ jobs:
           $(awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2)
           EOF
 
+      - run: echo "${FORTUNE}"
+
   set-bio:
     name: "Set bio"
     runs-on: ubuntu-latest
