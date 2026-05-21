@@ -47,11 +47,14 @@ jobs:
         run: |
           dotnet run - << EOF
           var me = new norwd();
+          var eof_marker = "$(head -c 8 /dev/random | hexdump -v -e '1/1 "%.2X"')";
           using var filestream = new FileStream("${GITHUB_ENV}", FileMode.Open);
           using var streamwriter = new StreamWriter(filestream);
           streamwriter.AutoFlush = true;
           Console.SetOut(streamwriter);
+          Console.WriteLine(\$"FORTUNE<<{eof_marker}");
           Console.WriteLine(me.Fortune);
+          Console.WriteLine(\$"{eof_marker}");
           public enum Pronoun {He,Him,His} // prevent syntax errors
           $(awk '/^```csharp$/,/^```$/{print}' README.md | head -n -1 | tail -n +2)
           EOF
