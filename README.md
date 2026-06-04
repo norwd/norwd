@@ -4,43 +4,43 @@
 /// </summary>
 public class norwd
 {
-  /// <summary>
-  /// My <see cref="norwd.Pronouns" /> are he/him/his.
-  /// </summary>
-  public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
+    /// <summary>
+    /// My <see cref="norwd.Pronouns" /> are he/him/his.
+    /// </summary>
+    public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
 
-  /// <summary>
-  /// Some of my external links.
-  /// </summary>
-  public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
-  {
-    ["CodeBerg"]      = new Uri("https://codeberg.org/norwd"),
-    ["GitHub"]        = new Uri("https://github.com/norwd"), // TODO: complete migration to codeberg.org
-    ["JiraStopWatch"] = new Uri("https://jirastopwatch.com"),
-    ["ThisTimeStamp"] = new Uri("https://thistimestamp.com"),
-  };
+    /// <summary>
+    /// Some of my external links.
+    /// </summary>
+    public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
+    {
+        ["CodeBerg"]      = new Uri("https://codeberg.org/norwd"),
+        ["GitHub"]        = new Uri("https://github.com/norwd"), // TODO: complete migration to codeberg.org
+        ["JiraStopWatch"] = new Uri("https://jirastopwatch.com"),
+        ["ThisTimeStamp"] = new Uri("https://thistimestamp.com"),
+    };
 
-  /// <summary>
-  /// Get a randomised fortune each time.
-  /// </summary>
-  /// <remarks>
-  /// These fortunes are periodically set as my bio!
-  /// </remarks>
-  public string Fortune => new[]
-  {
-    "Нет войне!",
-    "A language that doesn't affect the way you think about, is not worth knowing",
-    "Anything added dilutes everything else",
-    "Approachable is better than simple",
-    "Clear is better than clever",
-    "Don't panic",
-    "A unit test is most useful when it fails",
-    "A unit test that passes, says nothing",
-    "When an honest man discovers that he is mistaken, he will either cease to be mistaken, or cease to be honest",
-    "The large print giveth, and the fine print taketh away",
-  }
-  .OrderBy(_ => new Random().Next())
-  .First();
+    /// <summary>
+    /// Get a randomised fortune each time.
+    /// </summary>
+    /// <remarks>
+    /// These fortunes are periodically set as my bio!
+    /// </remarks>
+    public string Fortune => new[]
+    {
+        "Нет войне!",
+        "A language that doesn't affect the way you think about, is not worth knowing",
+        "Anything added dilutes everything else",
+        "Approachable is better than simple",
+        "Clear is better than clever",
+        "Don't panic",
+        "A unit test is most useful when it fails",
+        "A unit test that passes, says nothing",
+        "When an honest man discovers that he is mistaken, he will either cease to be mistaken, or cease to be honest",
+        "The large print giveth, and the fine print taketh away",
+    }
+    .OrderBy(_ => new Random().Next())
+    .First();
 }
 ```
 
