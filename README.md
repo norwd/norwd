@@ -10,12 +10,12 @@ public class norwd
     public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
 
     /// <summary>
-    /// Some of my external links.
+    /// Some of my external links. Places to find me, things I'm working on, etc...
     /// </summary>
     public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
     {
         ["CodeBerg"]      = new Uri("https://codeberg.org/norwd"),
-        ["GitHub"]        = new Uri("https://github.com/norwd"), // TODO: complete migration to codeberg.org
+        // ["GitHub"]        = new Uri("https://github.com/norwd"), // https://giveupgithub.org
         ["JiraStopWatch"] = new Uri("https://jirastopwatch.com"),
         ["ThisTimeStamp"] = new Uri("https://thistimestamp.com"),
     };
@@ -28,7 +28,7 @@ public class norwd
     /// </remarks>
     public string Fortune => new[]
     {
-        "Нет войне!",
+        "Нет войне!", // https://crisisrelief.un.org/ukraine-crisis
         "A language that doesn't affect the way you think about, is not worth knowing",
         "Anything added dilutes everything else",
         "Approachable is better than simple",
@@ -36,7 +36,6 @@ public class norwd
         "Don't panic",
         "A unit test is most useful when it fails",
         "A unit test that passes, says nothing",
-        "When an honest man discovers that he is mistaken, he will either cease to be mistaken, or cease to be honest",
         "The large print giveth, and the fine print taketh away",
     }
     .OrderBy(_ => new Random().Next())
