@@ -21,7 +21,7 @@ who prompted the AI could not certify the code produced.
 
 With this in mind, AI generated contributions will be accepted *only* if:
 
-1. The data-set contains only code that can be traced back to indivdual authors
+1. The data-set contains only code that can be traced back to individual authors
 2. *AND* those authors consented to their code being included in the data-set
 3. *AND* their code was published under a compatible open source license
 
