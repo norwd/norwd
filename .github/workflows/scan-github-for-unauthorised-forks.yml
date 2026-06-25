@@ -1,0 +1,101 @@
+#
+# SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
+# SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
+#
+
+---
+   
+name: "Scan GitHub for Unauthorised Forks"
+run-name: "Scan GitHub for Unauthorised Forks"
+permissions: {}
+
+concurrency:
+  group: scan-github-for-unauthorised-forks
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+  push:
+    branches: main
+    paths:
+      - .github/workflows/scan-github-for-unauthorised-forks.yml
+
+env:
+  GH_TOKEN: ${{ secrets.SCAN_GITHUB_FOR_UNAUTHORISED_FORKS_NORWD }}
+
+jobs:
+  scan-github-for-unauthorised-forks:
+    name: "Scan GitHub for Unauthorised Forks"
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "List Repos with Canary Token"
+        run: gh search code "${CANARY}" --json "${FIELDS}" --jq "${JQ_QUERY}"
+        env:
+          CANARY: ${{ secrets.CODEBERG_CANARY_TOKEN }}
+          FIELDS: path,repository,sha,textMatches,url
+          JQ_QUERY: ''
+
+      - name: "Open Issue Requesting Removal"
+        run: gh --repo REPO issue create --title TITLE --body BODY
+        env:
+          TITLE: Request for Removal
+          BODY: |
+            # Please don’t upload my code to GitHub
+
+            [![Please don’t upload to GitHub](https://nogithub.codeberg.page/badge.svg)](https://nogithub.codeberg.page)
+
+            *This is a call to free/libre and open source software developers to not upload the work of others to GitHub.*
+
+            I’m opening this issue because I have detected[^detection] that this repository is using, or is referencing,
+            code that I have removed from GitHub, or never uploaded to GitHub in the first place,
+            and I am asking that this code is removed from the platform.
+            I have no issue with open source software, nor with the use of my code,
+            I take issue with GitHub specifically, Microsoft broadly, so-called "AI" in general.
+
+            [^detection]: I have detected this with an automated tool,
+              which can be found [here][scan-github-for-unauthorised-forks.yml],
+              and [welcome *human* feedback or bug reports][report-mistaken-detection] if you believe that this detection was in error.
+
+            [scan-github-for-unauthorised-forks.yml]: https://codeberg.org/norwd/.profile/src/branch/main/.github/workflows/scan-github-for-unauthorised-forks.yml
+            [report-mistaken-detection]: https://codeberg.org/norwd/.profile/issues/new
+
+            ## What’s the problem with GitHub?
+
+            There are a lot of problems with GitHub,
+            but I mainly am opening this issue because of Copilot.
+            If you’re interested to learn more about the other issues,
+            [please visit this page](https://sfconservancy.org/GiveUpGitHub/).
+
+            ## So, just don’t put your code on GitHub, what’s the big deal?
+
+            The issue is bigger than it seems.
+            Even though my projects are not hosted on GitHub,
+            other people have the legal right (under license) to redistribute the source code.
+            That means they have the right to share the code of others on GitHub,
+            as long as they respect the terms of the license.
+            This is totally legal.
+            But then, Copilot will be able to analyze my code and violate the license terms, which isn’t legal.
+
+            This is why I ask you, as other developers of the free/libre and open source community,
+            not to upload my code to GitHub.
+
+            ## Is this a legal document?
+
+            No, it isn’t.
+            All my projects are under free and open source licenses,
+            it means that everyone can share a copy – even on GitHub – of the licensed material under certain conditions.
+            However, since GitHub does not respect the terms of licensed code that is hosted on their servers,
+            not uploading the code of others to GitHub is, in fact, a deeply ethical choice.
+
+            <!--
+            This issue quotes from https://nogithub.codeberg.page under CC-BY-SA-4.0
+            -->
+
+...
