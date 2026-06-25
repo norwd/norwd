@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
+SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
+-->
+
 # Welcome 👋
 
 If you'd like to contribute, please open a PR. Be sure to explain what your
