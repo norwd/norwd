@@ -25,7 +25,7 @@ The DCO (Version 1.1) reads:
 <!--
 SPDX-SnippetBegin
 SPDX-SnippetCopyrightText: Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
-SPDX-License-Identifier: LicenseRef-DCO
+SPDX-License-Identifier: LicenseRef-DCO-Version-1.1
 -->
 ```
 By making a contribution to this project, I certify that:
