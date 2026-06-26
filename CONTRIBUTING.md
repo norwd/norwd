@@ -5,17 +5,56 @@ SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
 
 # Welcome 👋
 
-If you'd like to contribute, please open a PR. Be sure to explain what your
-proposed changes do. If you're unsure about something, or don't know how to make
-a change that you'd like to see, open an issue and I'll see what I can do 🙂
+If you'd like to contribute, please open a PR.
+Be sure to explain what your proposed changes do.
+If you're unsure about something,
+or don't know how to make a change that you'd like to see,
+open an issue and I'll see what I can do 🙂
 
 ## Developer Certificate of Origin (DCO)
 
-This repository enforces the Developer Certificate of Origin ([DCO]) on Pull
-Requests. All commit messages must contain the [`Signed-off-by`] line with an
-email address that matches the commit author. The DCO is a lightweight way to
-certify that you wrote or otherwise have the right to submit the code you are
-contributing to this project.
+This repository enforces the Developer Certificate of Origin ([DCO]) on Pull Requests.
+All commit messages must contain the [`Signed-off-by`] line
+with an email address that matches the commit author.
+The DCO is a lightweight way to certify that you wrote,
+or otherwise have the right to submit,
+the code you are contributing to this project.
+
+The DCO (Version 1.1) reads:
+
+<!--
+SPDX-SnippetBegin
+SPDX-SnippetCopyrightText: Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
+SPDX-License-Identifier: LicenseRef-DCO-Version-1.1
+-->
+```
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
+
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including all
+    personal information I submit with it, including my sign-off) is
+    maintained indefinitely and may be redistributed consistent with
+    this project or the open source license(s) involved.
+```
+<!--
+SPDX-SnippetEnd
+-->
 
 Note that this effectively rules out all LLM-generated code.
 As any code produced from an AI is essentially taken from publicly accessible code,
@@ -32,7 +71,7 @@ Such a model does not currently exist.
 
 ## AI Policy
 
-The use of any AI or LLMs in this project is strictly forbiden.
+The use of any AI or LLMs in this project is strictly forbidden.
 This includes but is not limited to generation or review of code, documentation, or other files,
 creation of or contribution to bug reports, pull requests, and discussions,
 and to the debugging, optimising, security scaning, etc,
@@ -41,7 +80,7 @@ Likewise the usage of AI or LLMs to process, parse, analyse, train on,
 or otherwise use in any way the contents or outputs of this project,
 including any compilation artifacts, binary blobs, or data files,
 whether distributed by this project or others, or built from this project by anyone,
-is strictly forbiden.
+is strictly forbidden.
 
 Any AI generated PRs will be rejected.
 
