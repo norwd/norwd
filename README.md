@@ -3,6 +3,7 @@ SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
 SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
 -->
 
+<!-- REUSE-IgnoreStart -->
 ```csharp
 //
 // SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
@@ -52,6 +53,7 @@ public class norwd
     .First();
 }
 ```
+<!-- REUSE-IgnoreEnd -->
 
 All of my code is 100% Human-Made!
 
