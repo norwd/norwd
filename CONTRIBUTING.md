@@ -3,17 +3,17 @@ SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
 SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
 -->
 
-# Welcome 👋
+# Welcome
 
 If you'd like to contribute, please open a PR.
 Be sure to explain what your proposed changes do.
 If you're unsure about something,
 or don't know how to make a change that you'd like to see,
-open an issue and I'll see what I can do 🙂
+open an issue and I'll see what I can do.
 
-## Developer Certificate of Origin (DCO)
+## Developer Certificate of Origin
 
-This repository enforces the Developer Certificate of Origin ([DCO]) on Pull Requests.
+This repository enforces the Developer Certificate of Origin ([DCO]).
 All commit messages must contain the [`Signed-off-by`] line
 with an email address that matches the commit author.
 The DCO is a lightweight way to certify that you wrote,
@@ -96,11 +96,12 @@ Lisp contributions, and the use of programs written in Lisp (by a human) are mos
 
 The purpose of this ban is to prevent the cancerous spread of slop,
 and the illegal and unethical practices of the AI industry,
-not to litigate whether [ELIZA] is the same as ChatGPT (it isn't).
+not to litigate whether ChatGPT is just the same as [ELIZA] (it isn't).
 
 See also:
 
 * [CODE OF CONDUCT]
+* [Developer Certificate of Origin][DCO]
 
 [CODE OF CONDUCT]: https://codeberg.org/norwd/.profile/src/branch/main/CODE_OF_CONDUCT.md
 [DCO]: https://developercertificate.org

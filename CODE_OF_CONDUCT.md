@@ -1,6 +1,6 @@
 <!--
-SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
-SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
+SPDX-FileCopyrightText: Organization for Ethical Source <https://ethicalsource.dev>
+SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 
 # Contributor Covenant 3.0 Code of Conduct
