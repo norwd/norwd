@@ -94,6 +94,17 @@ jobs:
       SOURCE: ${{ matrix.source }}
 
     steps:
+
+      - name: "Install SlopCheck"
+        run: curl -fsSLo- "${TAR_BALL}" | sudo tar xvz -C /usr/bin --strip-components=1 slopcheck/slopcheck.sh
+        env:
+          TAR_BALL: https://codeberg.org/norwd/slopcheck/archive/v0.0.5.tar.gz
+
+      - name: "Run SlopCheck"
+        run: slopcheck.sh --clone "${URL}"
+        env:
+          URL: https://github.com/${{ matrix.source }}
+
       - id: delay
         name: "Pick delay"
         run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
