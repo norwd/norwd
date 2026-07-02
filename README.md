@@ -48,6 +48,7 @@ public class norwd
         "A unit test is most useful when it fails",
         "A unit test that passes, says nothing",
         "The large print giveth, and the fine print taketh away",
+        "A wealth of information creates a poverty of attention",
     }
     .OrderBy(_ => new Random().Next())
     .First();
