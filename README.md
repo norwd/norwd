@@ -55,7 +55,7 @@ public class norwd
 ```
 <!-- REUSE-IgnoreEnd -->
 
-All of my code is 100% Human-Made!
+All of my code is 100% Slop free!
 
-<img src="https://codeberg.org/norwd/human/raw/branch/main/docs/automatic-logo.svg" height="50" />
+<img src="assets/badge.png" height="50" />
 
