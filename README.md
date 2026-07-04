@@ -58,5 +58,5 @@ public class norwd
 
 All of my code is 100% Slop free!
 
-<img src="assets/badge.png" height="50" />
+<img src="https://codeberg.org/norwd/.profile/raw/branch/main/assets/badge.png" height="50" />
 
