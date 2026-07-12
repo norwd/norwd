@@ -98,7 +98,7 @@ jobs:
       - name: "Install SlopCheck"
         run: curl -fsSLo- "${TAR_BALL}" | sudo tar xvz -C /usr/bin --strip-components=1 slopcheck/slopcheck.sh
         env:
-          TAR_BALL: https://codeberg.org/norwd/slopcheck/archive/v0.0.5.tar.gz
+          TAR_BALL: https://codeberg.org/norwd/slopcheck/archive/v0.0.8.tar.gz
 
       - name: "Run SlopCheck"
         run: slopcheck.sh --clone "${URL}"
