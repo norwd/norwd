@@ -23,8 +23,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y reuse
 
-          curl -fsSLo- "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v3.7.0/editorconfig-checker-linux-amd64.tar.gz" | sudo tar xvz -C /usr/bin editorconfig-checker
-          curl -fsSLo- "https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh" | sh -s -- -b /usr/local/bin
+          # v3.6.1 is the last slop-free release of editorconfig-checker
+          curl -fsSLo- "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v3.6.1/editorconfig-checker-linux-amd64.tar.gz" | sudo tar xvz -C /usr/bin editorconfig-checker
+
+          # v3.90.12 is the last slop-free release of trufflehog
+          curl -fsSLo- "https://github.com/trufflesecurity/trufflehog/releases/download/v3.90.12/trufflehog_3.90.12_linux_amd64.tar.gz" | sudo tar xvz -C /usr/bin trufflehog
 
       - name: "Checkout (for linting)"
         uses: actions/checkout@v6
