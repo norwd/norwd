@@ -56,7 +56,26 @@ public class norwd
 ```
 <!-- REUSE-IgnoreEnd -->
 
-All of my code is 100% Slop free!
+I'm currently working on:
+
+* [slopcheck] - Check for signs of LLM agents in git repositories - Rewrite of https://codeberg.org/liberty/slopcheck in POSIX shell
+* [etc] - My dotfiles, configs, settings, ~/etc...
+* [quotes] - Programming Quotes API hosted on CodeBerg Pages
+* [zbase] - Fork of [sbase], slowly being rewritten in Zig[^what-is-sbase]
+
+[slopcheck]: https://codeberg.org/norwd/slopcheck
+[etc]: https://codeberg.org/norwd/etc
+[quotes]: https://codeberg.org/norwd/quotes
+[zbase]: https://codeberg.org/norwd/zbase
+[sbase]: https://core.suckless.org/sbase
+
+[^what-is-sbase]: [sbase] is a collection of unix tools that are portable across unix-systems.
+
+Checkout my repositories [here][my-repos] for more.
+
+[my-repos]: https://codeberg.org/norwd?q=&tab=repositories&sort=moststars
+
+*All of my code is 100% Slop free!*
 
 <img src="https://codeberg.org/norwd/.profile/raw/branch/main/assets/badge.png" height="50" />
 
