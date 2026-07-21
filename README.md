@@ -58,12 +58,13 @@ public class norwd
 
 I'm currently working on:
 
-* [slopcheck] - Check for signs of LLM agents in git repositories - Rewrite of https://codeberg.org/liberty/slopcheck in POSIX shell
+* [slopcheck] - Check for signs of LLM agents in git repositories - Rewrite of @liberty's [slopcheck][slopcheck-orig] in POSIX shell
 * [etc] - My dotfiles, configs, settings, ~/etc...
 * [quotes] - Programming Quotes API hosted on CodeBerg Pages
 * [zbase] - Fork of [sbase], slowly being rewritten in Zig[^what-is-sbase]
 
 [slopcheck]: https://codeberg.org/norwd/slopcheck
+[slopcheck-orig]: https://codeberg.org/liberty/slopcheck
 [etc]: https://codeberg.org/norwd/etc
 [quotes]: https://codeberg.org/norwd/quotes
 [zbase]: https://codeberg.org/norwd/zbase
