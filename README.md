@@ -62,6 +62,7 @@ I'm currently working on:
 * [etc] - My dotfiles, configs, settings, ~/etc...
 * [quotes] - Programming Quotes API hosted on CodeBerg Pages
 * [zbase] - Fork of [sbase], slowly being rewritten in Zig[^what-is-sbase]
+* [EVi] - A programmer's text editor (contributor)
 
 [slopcheck]: https://codeberg.org/norwd/slopcheck
 [slopcheck-orig]: https://codeberg.org/liberty/slopcheck
@@ -69,6 +70,7 @@ I'm currently working on:
 [quotes]: https://codeberg.org/norwd/quotes
 [zbase]: https://codeberg.org/norwd/zbase
 [sbase]: https://core.suckless.org/sbase
+[EVi]: https://codeberg.org/evi-editor/evi
 
 [^what-is-sbase]: [sbase] is a collection of unix tools that are portable across unix-systems.
 
