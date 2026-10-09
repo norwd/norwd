@@ -1,15 +1,5 @@
-<!--
-SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
-SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
--->
-
 <!-- REUSE-IgnoreStart -->
 ```csharp
-/**
- * SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
- * SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
- */
-
 /// <summary>
 /// Hi, I'm <see cref="norwd" />.
 /// </summary>
@@ -19,17 +9,6 @@ public class norwd
     /// My <see cref="norwd.Pronouns" /> are he/him/his.
     /// </summary>
     public const Pronoun Pronouns = Pronoun.He | Pronoun.Him | Pronoun.His;
-
-    /// <summary>
-    /// Some of my external links. Places to find me, things I'm working on, etc...
-    /// </summary>
-    public IDictionary<string, Uri> Links => new Dictionary<string, Uri>
-    {
-        ["CodeBerg"]      = new Uri("https://codeberg.org/norwd"),
-        // ["GitHub"]        = new Uri("https://github.com/norwd"), // https://giveupgithub.org
-        ["JiraStopWatch"] = new Uri("https://jirastopwatch.com"),
-        ["ThisTimeStamp"] = new Uri("https://thistimestamp.com"),
-    };
 
     /// <summary>
     /// Get a randomised fortune each time.
@@ -53,16 +32,22 @@ public class norwd
     .OrderBy(_ => new Random().Next())
     .First();
 }
+
+/**
+ * SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
+ * SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
+ */
 ```
 <!-- REUSE-IgnoreEnd -->
 
 I'm currently working on:
 
-* [slopcheck] - Check for signs of LLM agents in git repositories - Rewrite of @liberty's [slopcheck][slopcheck-orig] in POSIX shell
+* [EVi] - A programmer's text editor
 * [etc] - My dotfiles, configs, settings, ~/etc...
-* [quotes] - Programming Quotes API hosted on CodeBerg Pages
-* [zbase] - Fork of [sbase], slowly being rewritten in Zig[^what-is-sbase]
-* [EVi] - A programmer's text editor (contributor)
+* [zzz] - Drop-in replacement for `sleep(1)` that snores 💤
+* [zbase] - Unix tools, slowly being rewritten in Zig
+* [farbfeld] - Image processing and conversion tools for the .ff image format.
+* [slopcheck] - Check for signs of LLM agents in git repositories - Rewrite of @liberty's [slopcheck][slopcheck-orig] in POSIX shell
 
 [slopcheck]: https://codeberg.org/norwd/slopcheck
 [slopcheck-orig]: https://codeberg.org/liberty/slopcheck
@@ -71,8 +56,10 @@ I'm currently working on:
 [zbase]: https://codeberg.org/norwd/zbase
 [sbase]: https://core.suckless.org/sbase
 [EVi]: https://codeberg.org/evi-editor/evi
-
-[^what-is-sbase]: [sbase] is a collection of unix tools that are portable across unix-systems.
+[zmenu]: https://codeberg.org/norwd/zmenu
+[zzz]: https://codeberg.org/norwd/zzz
+[zwm]: https://codeberg.org/norwd/zwm
+[farbfeld]: https://codeberg.org/norwd/farbfeld
 
 Checkout my repositories [here][my-repos] for more.
 
@@ -82,3 +69,7 @@ Checkout my repositories [here][my-repos] for more.
 
 <img src="https://codeberg.org/norwd/.profile/raw/branch/main/assets/badge.png" height="50" />
 
+<!--
+SPDX-FileCopyrightText: 2026 Y. Meyer-Norwood <norwd@noreply.codeberg.org>
+SPDX-License-Identifier: LicenseRef-Hippocratic-3.0-CL-ECO-LAW-MIL-SV
+-->
