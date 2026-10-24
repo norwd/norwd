@@ -45,7 +45,7 @@ I'm currently working on:
 * [EVi] - A programmer's text editor
 * [etc] - My dotfiles, configs, settings, ~/etc...
 * [zzz] - Drop-in replacement for `sleep(1)` that snores 💤
-* [zbase] - Unix tools, slowly being rewritten in Zig
+* [zwm] and [zmenu] - My forks of dwm and dmenu, slowly being rewritten in Zig
 * [farbfeld] - Image processing and conversion tools for the .ff image format.
 * [slopcheck] - Check for signs of LLM agents in git repositories - Rewrite of @liberty's [slopcheck][slopcheck-orig] in POSIX shell
 
